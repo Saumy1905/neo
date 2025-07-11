@@ -1,0 +1,16 @@
+<div class="pdf-card">
+  <div class="pdf-icon">
+    <i class="fas fa-file-pdf"></i>
+  </div>
+  <div class="pdf-content">
+    <h3 class="pdf-title">{{ include.title }}</h3>
+    <p class="pdf-meta">
+      <span class="pdf-pages">{{ include.pages }} pages</span>
+      <span class="pdf-date">{{ include.date | date: "%B %d, %Y" }}</span>
+    </p>
+    <div class="pdf-actions">
+      <a href="{{ include.view_url }}" class="btn-view">View</a>
+      <a href="{{ include.download_url }}" class="btn-download" download>Download</a>
+    </div>
+  </div>
+</div>

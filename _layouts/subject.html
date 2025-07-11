@@ -1,0 +1,98 @@
+---
+layout: default
+---
+<div class="container">
+  <!-- Breadcrumbs -->
+  <nav class="breadcrumbs">
+    <a href="{{ '/' | relative_url }}">Home</a> &gt;
+    <a href="{{ '/colleges/' | append: page.college_slug | append: '/' | relative_url }}">{{ page.college_name }}</a> &gt;
+    <a href="{{ '/colleges/' | append: page.college_slug | append: '/' | append: page.branch_slug | append: '/' | relative_url }}">{{ page.branch_name }}</a> &gt;
+    <a href="{{ '/colleges/' | append: page.college_slug | append: '/' | append: page.branch_slug | append: '/' | append: page.semester_slug | append: '/' | relative_url }}">{{ page.semester_name }}</a> &gt;
+    <span>{{ page.subject_name }}</span>
+  </nav>
+
+  <!-- Subject Header -->
+  <header class="subject-header">
+    <h1 class="page-title">{{ page.subject_name }} ({{ page.code }})</h1>
+    <p class="page-description">{{ page.description }}</p>
+  </header>
+
+  <!-- PDF Grid -->
+  <section class="pdf-grid">
+    {% comment %} Navigate to the correct nested data structure {% endcomment %}
+    {% assign college_data = site.data.colleges | where: "slug", page.college_slug | first %}
+    {% assign branch_data = college_data.branches | where: "slug", page.branch_slug | first %}
+    {% assign semester_data = branch_data.semesters | where: "slug", page.semester_slug | first %}
+    {% assign subject_data = semester_data.subjects | where: "slug", page.subject_slug | first %}
+    
+    {% if subject_data and subject_data.pyqs %}
+      <!-- Filter Buttons -->
+      <div class="subject-filter">
+        <button class="filter-btn active" data-filter="all">All</button>
+        {% assign years = subject_data.pyqs | map: 'year' | uniq | sort %}
+        {% for year in years %}
+          <button class="filter-btn" data-filter="{{ year }}">{{ year }}</button>
+        {% endfor %}
+      </div>
+
+      {% for pyq in subject_data.pyqs %}
+        {% comment %} Safe URL construction {% endcomment %}
+        {% assign safe_college = page.college_slug | slugify %}
+        {% assign safe_branch = page.branch_slug | slugify %}
+        {% assign safe_semester = page.semester_slug | slugify %}
+        {% assign safe_subject = page.subject_slug | slugify %}
+        {% capture view_url %}/pdf-viewer/{{ safe_college }}/{{ safe_branch }}/{{ safe_semester }}/{{ safe_subject }}/{{ pyq.year }}{% endcapture %}
+        {% assign view_url = view_url | relative_url %}
+        {% capture download_url %}/assets/pdfs/{{ pyq.file }}{% endcapture %}
+        {% assign download_url = download_url | relative_url %}
+        
+        <div class="subject-card" data-category="{{ pyq.year }}">
+          {% include pdf-card.html 
+            title=pyq.file
+            pages=pyq.pages
+            date=pyq.year
+            view_url=view_url
+            download_url=download_url
+          %}
+        </div>
+      {% endfor %}
+    {% else %}
+      {% comment %} Debug and error handling {% endcomment %}
+      <div class="error-message">
+        <p>No PDFs found for this subject.</p>
+        <p><small>Debug: Looking for college "{{ page.college_slug }}", branch "{{ page.branch_slug }}", semester "{{ page.semester_slug }}", subject "{{ page.subject_slug }}"</small></p>
+        <a href="{{ '/colleges/' | append: page.college_slug | append: '/' | append: page.branch_slug | append: '/' | append: page.semester_slug | relative_url }}" class="btn-secondary">Back to Semester</a>
+      </div>
+    {% endif %}
+  </section>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const subjectCards = document.querySelectorAll('.subject-card');
+
+    if (filterButtons.length > 0 && subjectCards.length > 0) {
+      filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          filterButtons.forEach(btn => btn.classList.remove('active'));
+          this.classList.add('active');
+          
+          const filter = this.getAttribute('data-filter');
+          
+          subjectCards.forEach(card => {
+            if (filter === 'all') {
+              card.style.display = 'block';
+            } else {
+              if (card.getAttribute('data-category') === filter) {
+                card.style.display = 'block';
+              } else {
+                card.style.display = 'none';
+              }
+            }
+          });
+        });
+      });
+    }
+  });
+</script>

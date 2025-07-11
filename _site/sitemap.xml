@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
+<loc>http://localhost:4000/about/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/colleges/ymca/computer-engineering/sem3/aec/</loc>
+</url>
+<url>
 <loc>http://localhost:4000/colleges/ymca/computer-engineering/sem3/</loc>
 </url>
 <url>
@@ -20,9 +26,6 @@
 </url>
 <url>
 <loc>http://localhost:4000/</loc>
-</url>
-<url>
-<loc>http://localhost:4000/about/</loc>
 </url>
 <url>
 <loc>http://localhost:4000/assets/pdfs/vit-bhopal/computer-engineering/sem6/digital-logic-design/vit-bhopal-digital-logic-design-2022.pdf</loc>
