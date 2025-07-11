@@ -1,0 +1,95 @@
+---
+layout: default
+title: Home
+---
+
+<section class="hero">
+  <div class="container">
+    <h1>Welcome to PYQFort</h1>
+    <p>Access, view, and download PYQs</p>
+    <!-- <div class="hero-search">
+      <form class="search-form-large" action="{{ '/search/' | relative_url }}">
+        <input type="text" name="q" placeholder="Search for PDFs...">
+        <button type="submit"><i class="fas fa-search"></i> Search</button>
+      </form>
+    </div> -->
+  </div>
+</section>
+
+<section class="featured-colleges">
+  <div class="container">
+    <h2 class="section-title">Browse by Colleges</h2>
+    
+    <div class="college-grid">
+      {% for college in site.data.colleges %}
+        {% include college-card.html 
+          slug=college.slug
+          id=college.id 
+          name=college.name 
+          description=college.description 
+          icon=college.icon 
+        %}
+      {% endfor %}
+    </div>
+    <div class="section-footer">
+      <a href="{{ '/colleges/' | relative_url }}" class="btn-primary">View All Colleges</a>
+    </div>
+  </div>
+</section>
+
+<!-- <section class="popular-subjects">
+  <div class="container">
+    <h2 class="section-title">Popular Subjects</h2>
+    
+    <div class="subject-grid">
+      {% for subject in site.data.subjects limit:6 %}
+        {% include subject-card.html 
+          id=subject.id 
+          name=subject.name 
+          description=subject.description 
+          pdf_count=subject.pdfs.size 
+        %}
+      {% endfor %}
+    </div>
+    
+    <div class="section-footer">
+      <a href="{{ '/subjects/' | relative_url }}" class="btn-primary">View All Subjects</a>
+    </div>
+  </div>
+</section> -->
+
+<!-- <section class="recent-pdfs">
+  <div class="container">
+    <h2 class="section-title">Recently Added PDFs</h2>
+    
+    <div class="pdf-grid">
+      {% assign all_pdfs = "" | split: "" %}
+      
+      {% for subject in site.data.subjects %}
+        {% for pdf in subject.pdfs %}
+          {% assign pdf_with_meta = pdf | merge: {"subject_id": subject.id} %}
+          {% assign all_pdfs = all_pdfs | push: pdf_with_meta %}
+        {% endfor %}
+      {% endfor %}
+      
+      {% assign sorted_pdfs = all_pdfs | sort: "date" | reverse %}
+      
+      {% for pdf in sorted_pdfs limit:6 %}
+        {% assign subject = site.data.subjects | where: "id", pdf.subject_id | first %} -->
+        
+        <!-- Pre-calculate URLs using assign statements -->
+        <!-- {% assign pdf_filename_without_ext = pdf.file | replace: '.pdf', '' %}
+        {% assign view_url = site.baseurl | append: '/pdf-viewer/' | append: pdf.subject_id | append: '/' | append: pdf_filename_without_ext %}
+        {% assign download_url = site.baseurl | append: '/assets/pdfs/' | append: pdf.file %}
+        
+        {% include pdf-card.html 
+          title=pdf.title 
+          pages=pdf.pages 
+          date=pdf.date 
+          view_url=view_url 
+          download_url=download_url 
+        %}
+      {% endfor %}
+    </div>
+  </div>
+</section> -->

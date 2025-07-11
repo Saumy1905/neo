@@ -1,0 +1,10 @@
+<div class="college-card">
+  <div class="college-icon">
+    <i class="fas fa-{{ include.icon }}"></i>
+  </div>
+  <div class="college-content">
+    <h2 class="college-title">{{ include.name }}</h2>
+    <p class="college-description">{{ include.description }}</p>
+    <a href="{{ '/colleges/' | append: include.slug | append: '/' | relative_url }}" class="btn-view">View Colleges</a>
+  </div>
+</div>

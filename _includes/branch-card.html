@@ -1,0 +1,14 @@
+<div class="branch-card">
+  <div class="branch-icon">
+    <i class="fas fa-{{ include.icon | default: 'code-branch' }}"></i>
+  </div>
+  <div class="branch-content">
+    <h2 class="branch-title">{{ include.title }}</h2>
+    <p class="branch-description">{{ include.description }}</p>
+    <div class="branch-meta">
+      <span class="branch-duration"><i class="fas fa-clock"></i> {{ include.duration | default: '4 years' }}</span>
+      <span class="branch-students"><i class="fas fa-user-graduate"></i> {{ include.students | default: '0' }} students</span>
+    </div>
+    <a href="{{ include.url }}" class="btn-view">View Papers</a>
+  </div>
+</div>

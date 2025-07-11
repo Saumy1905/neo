@@ -1,0 +1,27 @@
+---
+layout: default
+---
+<div class="container">
+  <!-- Breadcrumbs -->
+  <nav class="breadcrumbs">
+    <a href="{{ '/' | relative_url }}">Home</a> > <span>{{ page.title }}</span>
+  </nav>
+
+  <!-- College Header -->
+  <header class="college-header">
+    <h1 class="page-title">{{ page.title }}</h1>
+    <p class="page-description">{{ page.description }}</p>
+  </header>
+
+  <!-- Branch Grid -->
+  <section class="branch-grid">
+    {% for branch in site.data.branches %}
+      {% if branch.colleges contains page.name | downcase %}
+        {% assign branch_url = '/colleges/' | append: page.name | append: '/' | append: branch.id | relative_url %}
+        {% include branch-card.html title=branch.name id=branch.id description=branch.description icon=branch.icon url=branch_url %}
+      {% else %}
+        <!-- Debug: No match for {{ branch.name }} with {{ page.name }} (Expected: ymca) -->
+      {% endif %}
+    {% endfor %}
+  </section>
+</div>

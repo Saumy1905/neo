@@ -1,0 +1,25 @@
+---
+layout: default
+title: Colleges
+permalink: /colleges/
+---
+<div class="container">
+  <!-- Breadcrumbs -->
+  <nav class="breadcrumbs">
+    <a href="{{ '/' | relative_url }}">Home</a> > <span>Colleges</span>
+  </nav>
+
+  <!-- Colleges Header -->
+  <header class="college-header">
+    <h1 class="page-title">Our Colleges</h1>
+    <p class="page-description">Explore past question papers from various colleges.</p>
+  </header>
+
+  <!-- College Grid -->
+  <section class="college-grid">
+    {% for college in site.data.colleges %}
+      {% assign college_url = '/colleges/' | append: include.college.slug | append: '/' | relative_url %}
+      {% include college-card.html title=college.name id=college.id description=college.description icon=college.icon url=college_url %}
+    {% endfor %}
+  </section>
+</div>

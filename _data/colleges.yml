@@ -1,0 +1,62 @@
+- name: YMCA
+  slug: ymca
+  id: ymca
+  description: Explore branches and Previous Year Question Papers
+  branches:
+    - name: computer-engineering
+      slug: computer-engineering
+      id: computer-engineering
+      description: Computer Engineering Branch
+      semesters:
+        - number: 3
+          slug: sem3
+          id: sem3
+          description: Subjects for Semester 3
+          subjects:
+            - name: Analog Electronic Circuit
+              description: Study of electronic circuits and devices
+              slug: aec
+              id: aec
+              pyqs:
+                - year: 2024
+                  file: ymca-aec-2024.pdf
+            - name: Calculus and Ordinary Differential Equations
+              description: Mathematical concepts in engineering
+              slug: cde
+              id: cde
+              pyqs:
+                - year: 2023
+                  file: ymca-cde-2023.pdf
+        - number: 4
+          slug: sem4
+          id: sem4
+          description: Subjects for Semester 4
+          subjects:
+            - name: Computer Organization and Architecture
+              id: coa
+              description: Fundamentals of computer systems
+              slug: coa
+              pyqs:
+                - year: 2024
+                  file: ymca-coa-2024.pdf
+- name: VIT-Bhopal
+  slug: vit-bhopal
+  id: vit-bhopal
+  description: Explore branches and Previous Year Question Papers
+  branches:
+    - name: computer-engineering
+      slug: computer-engineering
+      id: computer-engineering
+      description: Computer Engineering Branch
+      semesters:
+        - number: 6
+          slug: sem6
+          description: Subjects for Semester 6
+          subjects:
+            - name: Digital Logic Design
+              slug: digital-logic-design
+              id: digital-logic-design
+              description: Fundamentals of digital circuits
+              pyqs:
+                - year: 2022
+                  file: vit-bhopal-digital-logic-design-2022.pdf
