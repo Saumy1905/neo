@@ -1,0 +1,12 @@
+<div class="subject-card">
+  <div class="subject-icon">
+    <i class="fas fa-book"></i>
+  </div>
+  <div class="subject-content">
+    <h2 class="subject-title">{{ include.name | default: include.title }}</h2>
+    <p class="subject-code">{{ include.code | default: include.id }}</p>
+    <p class="subject-description">{{ include.description | default: "Subject information" }}</p>
+    <p class="subject-meta">{{ include.pdf_count | default: 0 }} PDF{% if include.pdf_count != 1 %}s{% endif %} available</p>
+    <a href="{{ include.url }}" class="btn-view">View Subject</a>
+  </div>
+</div>

@@ -1,0 +1,56 @@
+---
+layout: default
+---
+<div class="container">
+  <!-- Breadcrumbs -->
+  <nav class="breadcrumbs">
+    <a href="{{ '/' | relative_url }}">Home</a> &gt;
+    <a href="{{ '/colleges/' | append: page.college_slug | append: '/' | relative_url }}">{{ page.college_name }}</a> &gt;
+    <a href="{{ '/colleges/' | append: page.college_slug | append: '/' | append: page.branch_slug | append: '/' | relative_url }}">{{ page.branch_name }}</a> &gt;
+    <span>{{ page.semester_name }}</span>
+  </nav>
+
+  <!-- Semester Header -->
+  <header class="semester-header">
+    <h1 class="page-title">{{ page.semester_name }} - {{ page.branch_name }}</h1>
+    <p class="page-description">{{ page.description | default: "View subjects and Previous Year Question Papers" }}</p>
+  </header>
+
+  <!-- Subject Grid -->
+  <section class="subject-grid">
+    {% comment %} Navigate to the correct nested data structure {% endcomment %}
+    {% assign college_data = site.data.colleges | where: "slug", page.college_slug | first %}
+    {% assign branch_data = college_data.branches | where: "slug", page.branch_slug | first %}
+    {% assign semester_data = branch_data.semesters | where: "slug", page.semester_slug | first %}
+    
+    {% if semester_data and semester_data.subjects %}
+      {% for subject in semester_data.subjects %}
+        {% comment %} Safe URL construction {% endcomment %}
+        {% assign safe_college = page.college_slug | slugify %}
+        {% assign safe_branch = page.branch_slug | slugify %}
+        {% assign safe_semester = page.semester_slug | slugify %}
+        {% assign safe_subject = subject.slug | slugify %}
+        {% capture subject_url %}/colleges/{{ safe_college }}/{{ safe_branch }}/{{ safe_semester }}/{{ safe_subject }}{% endcapture %}
+        {% assign subject_url = subject_url | relative_url %}
+        
+        {% comment %} Include subject card with proper parameters {% endcomment %}
+        {% include subject-card.html 
+          name=subject.name
+          title=subject.name
+          code=subject.id
+          description=subject.description
+          pdf_count=subject.pyqs.size
+          url=subject_url
+          id=subject.slug
+        %}
+      {% endfor %}
+    {% else %}
+      {% comment %} Debug and error handling {% endcomment %}
+      <div class="error-message">
+        <p>No subjects found for this semester.</p>
+        <p><small>Debug: Looking for college "{{ page.college_slug }}", branch "{{ page.branch_slug }}", semester "{{ page.semester_slug }}"</small></p>
+        <a href="{{ '/colleges/' | append: page.college_slug | append: '/' | append: page.branch_slug | relative_url }}" class="btn-secondary">Back to Branch</a>
+      </div>
+    {% endif %}
+  </section>
+</div>
