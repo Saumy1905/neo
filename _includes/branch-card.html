@@ -1,14 +1,17 @@
-<div class="branch-card">
+<a href="{{ '/colleges/' | append: include.college_slug | append: '/' | append: include.branch.slug | append: '/' | relative_url }}" class="branch-card">
   <div class="branch-icon">
-    <i class="fas fa-{{ include.icon | default: 'code-branch' }}"></i>
+    {% if include.branch.icon %}
+      <i class="fas fa-{{ include.branch.icon }}"></i>
+    {% else %}
+      <i class="fas fa-code"></i>
+    {% endif %}
   </div>
   <div class="branch-content">
-    <h2 class="branch-title">{{ include.title }}</h2>
-    <p class="branch-description">{{ include.description }}</p>
-    <div class="branch-meta">
-      <span class="branch-duration"><i class="fas fa-clock"></i> {{ include.duration | default: '4 years' }}</span>
-      <span class="branch-students"><i class="fas fa-user-graduate"></i> {{ include.students | default: '0' }} students</span>
+    <h3 class="branch-title">{{ include.branch.name }}</h3>
+    <p class="branch-description">{{ include.branch.description | default: "Computer Science and Engineering" }}</p>
+    <div class="meta">
+      {% assign semester_count = include.branch.semesters | size %}
+      {{ semester_count }} semester{% if semester_count != 1 %}s{% endif %} available
     </div>
-    <a href="{{ include.url }}" class="btn-view">View Papers</a>
   </div>
-</div>
+</a>

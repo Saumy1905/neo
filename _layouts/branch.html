@@ -1,0 +1,27 @@
+---
+layout: default
+---
+<div class="container">
+  <!-- Breadcrumbs -->
+  <nav class="breadcrumbs">
+    <a href="{{ '/' | relative_url }}">Home</a> &gt;
+    <a href="{{ '/colleges/' | append: page.college | relative_url }}">{{ page.college | replace: 'ymca', 'JC Bose University' | replace: 'vit-bhopal', 'VIT Bhopal University' }}</a> &gt;
+    <span>{{ page.title }}</span>
+  </nav>
+
+  <!-- Branch Header -->
+  <header class="branch-header">
+    <h1 class="page-title">{{ page.title }}</h1>
+    <p class="page-description">{{ page.description }}</p>
+  </header>
+
+  <!-- Semester Grid -->
+  <section class="semester-grid">
+    {% for semester in site.data.semesters %}
+      {% if semester.colleges contains page.college %}
+        {% assign semester_url = '/colleges/' | append: page.college | append: '/' | append: page.name | append: '/' | append: semester.id | relative_url %}
+        {% include semester-card.html title=semester.name id=semester.id url=semester_url %}
+      {% endif %}
+    {% endfor %}
+  </section>
+</div>

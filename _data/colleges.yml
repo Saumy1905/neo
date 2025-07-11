@@ -1,12 +1,13 @@
-- name: YMCA
+- name: ymca
   slug: ymca
-  id: ymca
+  id: ymca # This must match exactly with page.name
   description: Explore branches and Previous Year Question Papers
   branches:
     - name: computer-engineering
       slug: computer-engineering
       id: computer-engineering
       description: Computer Engineering Branch
+      icon: laptop-code
       semesters:
         - number: 3
           slug: sem3
@@ -39,7 +40,7 @@
               pyqs:
                 - year: 2024
                   file: ymca-coa-2024.pdf
-- name: VIT-Bhopal
+- name: vit-bhopal
   slug: vit-bhopal
   id: vit-bhopal
   description: Explore branches and Previous Year Question Papers
@@ -48,6 +49,7 @@
       slug: computer-engineering
       id: computer-engineering
       description: Computer Engineering Branch
+      icon: microchip
       semesters:
         - number: 6
           slug: sem6

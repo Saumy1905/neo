@@ -1,0 +1,10 @@
+<div class="semester-card">
+  <div class="semester-icon">
+    <i class="fas fa-book-open"></i>
+  </div>
+  <div class="semester-content">
+    <h2 class="semester-title">Semester {{ include.number }}</h2>
+    <p class="semester-description">{{ include.description }}</p>
+    <a href="{{ '/semesters/' | append: include.id | relative_url }}" class="btn-view">View Semester</a>
+  </div>
+</div>
