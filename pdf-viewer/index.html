@@ -1,0 +1,49 @@
+---
+layout: default
+title: PDF Viewer
+permalink: /pdf-viewer/
+---
+<div class="container">
+  <!-- Breadcrumbs -->
+  <nav class="breadcrumbs">
+    <a href="{{ '/' | relative_url }}">Home</a> > <span>PDF Viewer</span>
+  </nav>
+
+  <!-- PDF Viewer Header -->
+  <header class="pdf-viewer-header">
+    <h1 class="page-title">PDF Viewer</h1>
+    <p class="page-description">Browse past question papers from various colleges and branches.</p>
+  </header>
+
+  <!-- PDF List -->
+  <section class="pdf-list">
+    {% comment %} Navigate through the nested data structure {% endcomment %}
+    {% for college in site.data.colleges %}
+      {% for branch in college.branches %}
+        {% for semester in branch.semesters %}
+          {% for subject in semester.subjects %}
+            {% for pyq in subject.pyqs %}
+              {% capture view_url %}/pdf-viewer/{{ college.slug }}/{{ branch.slug }}/{{ semester.slug }}/{{ subject.slug }}/{{ college.slug }}-{{ subject.slug }}-{{ pyq.year }}{% endcapture %}
+              {% capture download_url %}/assets/pdfs/{{ pyq.file }}{% endcapture %}
+              <div class="pdf-item">
+                <div class="pdf-info">
+                  <h2>{{ subject.name }} ({{ pyq.year }})</h2>
+                  <div class="pdf-meta">
+                    <span class="pdf-pages">{{ pyq.pages | default: 'N/A' }} pages</span>
+                    <span>{{ college.name }}</span>
+                    <span>{{ branch.name }}</span>
+                    <span>Semester {{ semester.number }}</span>
+                  </div>
+                </div>
+                <div class="pdf-actions">
+                  <a href="{{ view_url | relative_url }}" class="btn-view">View</a>
+                  <a href="{{ download_url | relative_url }}" class="btn-download">Download</a>
+                </div>
+              </div>
+            {% endfor %}
+          {% endfor %}
+        {% endfor %}
+      {% endfor %}
+    {% endfor %}
+  </section>
+</div>

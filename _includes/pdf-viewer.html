@@ -1,0 +1,8 @@
+<div class="pdf-viewer-container" id="pdf-viewer">
+  <iframe src="{{ include.file | relative_url }}#toolbar=1" class="pdf-iframe" id="pdf-iframe" title="PDF Viewer for {{ include.title }}"></iframe>
+</div>
+<div class="pdf-actions-bar">
+  <button id="fullscreen-btn" class="btn-fullscreen"><i class="fas fa-expand"></i> Fullscreen</button>
+  <button id="print-btn" class="btn-print"><i class="fas fa-print"></i> Print</button>
+  <a href="{{ include.file | relative_url }}" class="btn-download"><i class="fas fa-download"></i> Download</a>
+</div>

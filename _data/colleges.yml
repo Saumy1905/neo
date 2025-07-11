@@ -21,6 +21,9 @@
               pyqs:
                 - year: 2024
                   file: ymca-aec-2024.pdf
+                  id: ymca-aec-2024  # Add this unique identifier
+                  pages: 8
+                  title: "Applied Electronic Circuit 2024"
             - name: Calculus and Ordinary Differential Equations
               description: Mathematical concepts in engineering
               slug: cde
@@ -28,6 +31,9 @@
               pyqs:
                 - year: 2023
                   file: ymca-cde-2023.pdf
+                  id: ymca-cde-2023  # Add this unique identifier
+                  pages: 10
+                  title: "Calculus and Ordinary Differential Equations 2023"
         - number: 4
           slug: sem4
           id: sem4
@@ -40,6 +46,9 @@
               pyqs:
                 - year: 2024
                   file: ymca-coa-2024.pdf
+                  id: ymca-coa-2024  # Add this unique identifier
+                  pages: 12
+                  title: "Computer Organization and Architecture"
 - name: vit-bhopal
   slug: vit-bhopal
   id: vit-bhopal
@@ -62,3 +71,6 @@
               pyqs:
                 - year: 2022
                   file: vit-bhopal-digital-logic-design-2022.pdf
+                  id: vit-bhopal-digital-logic-design-2022
+                  pages: 10
+                  title: "Digital Logic Design"

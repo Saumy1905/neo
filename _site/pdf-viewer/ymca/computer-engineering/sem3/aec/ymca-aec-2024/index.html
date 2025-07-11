@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Analog Electronic Circuit - Semester 3 - Computer Engineering | PYQFort</title>
+  <title>Applied Electronic Circuit | PYQFort</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="/assets/css/main.css">
 </head>
@@ -49,101 +49,71 @@
   <!-- Breadcrumbs -->
   <nav class="breadcrumbs">
     <a href="/">Home</a> &gt;
-    <a href="/colleges/ymca/">JC Bose University</a> &gt;
-    <a href="/colleges/ymca/computer-engineering/">Computer Engineering</a> &gt;
-    <a href="/colleges/ymca/computer-engineering/sem3/">Semester 3</a> &gt;
-    <span>Analog Electronic Circuit</span>
+    <a href="/colleges/ymca">JC Bose University</a> &gt;
+    <a href="/colleges/ymca/computer-engineering">Computer engineering</a> &gt;
+    <a href="/colleges/ymca/computer-engineering/sem3">Semester 3</a> &gt;
+    <a href="/colleges/ymca/computer-engineering/sem3/aec">Aec</a> &gt;
+    <span>Applied Electronic Circuit</span>
   </nav>
 
-  <!-- Subject Header -->
-  <header class="subject-header">
-    <h1 class="page-title">Analog Electronic Circuit (AEC)</h1>
-    <p class="page-description">Study of electronic circuits and their applications in computer engineering.</p>
+  <!-- PDF Viewer Header -->
+  <header class="pdf-viewer-header">
+    <h1 class="pdf-title">Applied Electronic Circuit (2024)</h1>
+    <div class="pdf-meta">
+      <span>JC Bose University</span>
+      <span>Computer engineering</span>
+      <span>Semester 3</span>
+      <span>8 pages</span>
+    </div>
   </header>
 
-  <!-- PDF Grid -->
-  <section class="pdf-grid">
-    
-    
-    
-    
-    
-    
-    
-      <!-- Filter Buttons -->
-      <div class="subject-filter">
-        <button class="filter-btn active" data-filter="all">All</button>
-        
-        
-          <button class="filter-btn" data-filter="2024">2024</button>
-        
-      </div>
+  <!-- PDF Actions Bar -->
+  <div class="pdf-actions-bar">
+    <button id="fullscreen-btn" class="btn-fullscreen"><i class="fas fa-expand"></i> Fullscreen</button>
+    <button id="print-btn" class="btn-print"><i class="fas fa-print"></i> Print</button>
+    <a href="/assets/pdfs/ymca/computer-engineering/sem3/aec/ymca-aec-2024.pdf" class="btn-download"><i class="fas fa-download"></i> Download</a>
+  </div>
 
+  <!-- PDF Viewer -->
+  <div class="pdf-viewer-container" id="pdf-viewer">
+    <iframe src="/assets/pdfs/ymca/computer-engineering/sem3/aec/ymca-aec-2024.pdf#toolbar=1" class="pdf-iframe" id="pdf-iframe" title="PDF Viewer for Applied Electronic Circuit"></iframe>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="pdf-navigation">
+    
+    
+    
+    
+    
+    
+    
       
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <div class="subject-card" data-category="2024">
-    <div class="pdf-card">
-  <div class="pdf-icon">
-    <i class="fas fa-file-pdf"></i>
-  </div>
-  <div class="pdf-content">
-    <h3 class="pdf-title">Applied Electronic Circuit 2024</h3>
-    <p class="pdf-meta">
-      <span class="pdf-pages">8 pages</span>
-      <span class="pdf-date">January 01, 1970</span>
-    </p>
-    <div class="pdf-actions">
-      <a href="/pdf-viewer/ymca/computer-engineering/sem3/aec/ymca-aec-2024" class="btn-view">View</a>
-      <a href="/assets/pdfs/ymca-aec-2024.pdf" class="btn-download" download>Download</a>
-    </div>
-  </div>
-</div>
-  </div>
-
-
+      
+      
+      
+      
+        
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+        <span class="nav-prev" style="visibility: hidden;"><i class="fas fa-chevron-left"></i> Previous</span>
+      
+      
+      
+      
+        <span class="nav-next" style="visibility: hidden;">Next <i class="fas fa-chevron-right"></i></span>
+      
     
-  </section>
+  </nav>
 </div>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    const subjectCards = document.querySelectorAll('.subject-card');
-
-    if (filterButtons.length > 0 && subjectCards.length > 0) {
-      filterButtons.forEach(button => {
-        button.addEventListener('click', function() {
-          filterButtons.forEach(btn => btn.classList.remove('active'));
-          this.classList.add('active');
-          
-          const filter = this.getAttribute('data-filter');
-          
-          subjectCards.forEach(card => {
-            if (filter === 'all') {
-              card.style.display = 'block';
-            } else {
-              if (card.getAttribute('data-category') === filter) {
-                card.style.display = 'block';
-              } else {
-                card.style.display = 'none';
-              }
-            }
-          });
-        });
-      });
-    }
-  });
-</script>
 
   </main>
 

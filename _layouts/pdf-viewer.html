@@ -1,0 +1,87 @@
+---
+layout: default
+---
+<div class="container">
+  <!-- Breadcrumbs -->
+  <nav class="breadcrumbs">
+    <a href="{{ '/' | relative_url }}">Home</a> &gt;
+    <a href="{{ '/colleges/' | append: page.college | relative_url }}">{{ page.college | replace: 'ymca', 'JC Bose University' | replace: 'vit-bhopal', 'VIT Bhopal University' }}</a> &gt;
+    <a href="{{ '/colleges/' | append: page.college | append: '/' | append: page.branch | relative_url }}">{{ page.branch | replace: '-', ' ' | capitalize }}</a> &gt;
+    <a href="{{ '/colleges/' | append: page.college | append: '/' | append: page.branch | append: '/' | append: page.semester | relative_url }}">{{ page.semester | replace: 'sem', 'Semester ' }}</a> &gt;
+    <a href="{{ '/colleges/' | append: page.college | append: '/' | append: page.branch | append: '/' | append: page.semester | append: '/' | append: page.subject | relative_url }}">{{ page.subject | replace: '-', ' ' | capitalize }}</a> &gt;
+    <span>{{ page.title }}</span>
+  </nav>
+
+  <!-- PDF Viewer Header -->
+  <header class="pdf-viewer-header">
+    <h1 class="pdf-title">{{ page.title }} ({{ page.year }})</h1>
+    <div class="pdf-meta">
+      <span>{{ page.college | replace: 'ymca', 'JC Bose University' | replace: 'vit-bhopal', 'VIT Bhopal University' }}</span>
+      <span>{{ page.branch | replace: '-', ' ' | capitalize }}</span>
+      <span>{{ page.semester | replace: 'sem', 'Semester ' }}</span>
+      <span>{{ page.pages | default: 'N/A' }} pages</span>
+    </div>
+  </header>
+
+  <!-- PDF Actions Bar -->
+  <div class="pdf-actions-bar">
+    <button id="fullscreen-btn" class="btn-fullscreen"><i class="fas fa-expand"></i> Fullscreen</button>
+    <button id="print-btn" class="btn-print"><i class="fas fa-print"></i> Print</button>
+    <a href="{{ page.file | relative_url }}" class="btn-download"><i class="fas fa-download"></i> Download</a>
+  </div>
+
+  <!-- PDF Viewer -->
+  <div class="pdf-viewer-container" id="pdf-viewer">
+    <iframe src="{{ page.file | relative_url }}#toolbar=1" class="pdf-iframe" id="pdf-iframe" title="PDF Viewer for {{ page.title }}"></iframe>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="pdf-navigation">
+    {% comment %} Navigate to the correct nested data structure {% endcomment %}
+    {% assign college_data = site.data.colleges | where: "slug", page.college | first %}
+    {% assign branch_data = college_data.branches | where: "slug", page.branch | first %}
+    {% assign semester_data = branch_data.semesters | where: "slug", page.semester | first %}
+    {% assign subject_data = semester_data.subjects | where: "slug", page.subject | first %}
+    
+    {% if subject_data and subject_data.pyqs %}
+      {% assign papers = subject_data.pyqs | sort: 'year' %}
+      {% assign current_index = -1 %}
+      
+      {% comment %} Find current paper index {% endcomment %}
+      {% for pyq in papers %}
+        {% capture pyq_id %}{{ page.college }}-{{ page.subject }}-{{ pyq.year }}{% endcapture %}
+        {% if pyq_id == page.name %}
+          {% assign current_index = forloop.index0 %}
+          {% break %}
+        {% endif %}
+      {% endfor %}
+      
+      {% comment %} Calculate navigation indices safely {% endcomment %}
+      {% assign prev_index = current_index | minus: 1 %}
+      {% assign next_index = current_index | plus: 1 %}
+      {% assign max_index = papers.size | minus: 1 %}
+      
+      {% comment %} Previous navigation {% endcomment %}
+      {% if current_index > 0 %}
+        {% assign prev_paper = papers[prev_index] %}
+        {% capture prev_url %}/pdf-viewer/{{ page.college }}/{{ page.branch }}/{{ page.semester }}/{{ page.subject }}/{{ page.college }}-{{ page.subject }}-{{ prev_paper.year }}{% endcapture %}
+        <a href="{{ prev_url | relative_url }}" class="nav-prev"><i class="fas fa-chevron-left"></i> Previous</a>
+      {% else %}
+        <span class="nav-prev" style="visibility: hidden;"><i class="fas fa-chevron-left"></i> Previous</span>
+      {% endif %}
+      
+      {% comment %} Next navigation {% endcomment %}
+      {% if current_index < max_index and current_index >= 0 %}
+        {% assign next_paper = papers[next_index] %}
+        {% capture next_url %}/pdf-viewer/{{ page.college }}/{{ page.branch }}/{{ page.semester }}/{{ page.subject }}/{{ page.college }}-{{ page.subject }}-{{ next_paper.year }}{% endcapture %}
+        <a href="{{ next_url | relative_url }}" class="nav-next">Next <i class="fas fa-chevron-right"></i></a>
+      {% else %}
+        <span class="nav-next" style="visibility: hidden;">Next <i class="fas fa-chevron-right"></i></span>
+      {% endif %}
+    {% else %}
+      {% comment %} No navigation if no papers found {% endcomment %}
+      <span class="nav-prev" style="visibility: hidden;"><i class="fas fa-chevron-left"></i> Previous</span>
+      <span class="nav-next" style="visibility: hidden;">Next <i class="fas fa-chevron-right"></i></span>
+    {% endif %}
+  </nav>
+</div>
