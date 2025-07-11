@@ -5,23 +5,54 @@ layout: default
   <!-- Breadcrumbs -->
   <nav class="breadcrumbs">
     <a href="{{ '/' | relative_url }}">Home</a> &gt;
-    <a href="{{ '/colleges/' | append: page.college | relative_url }}">{{ page.college | replace: 'ymca', 'JC Bose University' | replace: 'vit-bhopal', 'VIT Bhopal University' }}</a> &gt;
-    <span>{{ page.title }}</span>
+    <a href="{{ '/colleges/' | append: page.college_slug | append: '/' | relative_url }}">{{ page.college_name }}</a> &gt;
+    <span>{{ page.branch_name }}</span>
   </nav>
 
   <!-- Branch Header -->
   <header class="branch-header">
-    <h1 class="page-title">{{ page.title }}</h1>
-    <p class="page-description">{{ page.description }}</p>
+    <h1 class="page-title">{{ page.branch_name }} - {{ page.college_name }}</h1>
+    <p class="page-description">{{ page.description | default: "Select a semester to view available Previous Year Question Papers" }}</p>
   </header>
 
   <!-- Semester Grid -->
   <section class="semester-grid">
-    {% for semester in site.data.semesters %}
-      {% if semester.colleges contains page.college %}
-        {% assign semester_url = '/colleges/' | append: page.college | append: '/' | append: page.name | append: '/' | append: semester.id | relative_url %}
-        {% include semester-card.html title=semester.name id=semester.id url=semester_url %}
-      {% endif %}
-    {% endfor %}
+    {% comment %} Use the working neo x manus logic {% endcomment %}
+    {% assign college_data = site.data.colleges | where: "slug", page.college_slug | first %}
+    {% assign branch_data = college_data.branches | where: "slug", page.branch_slug | first %}
+    
+    {% if branch_data and branch_data.semesters %}
+      {% for semester in branch_data.semesters %}
+        {% include semester-card.html 
+          semester=semester 
+          college_slug=page.college_slug 
+          branch_slug=page.branch_slug 
+        %}
+      {% endfor %}
+      
+      {% comment %} Add placeholder cards for future semesters {% endcomment %}
+      {% assign existing_semesters = branch_data.semesters | map: "number" %}
+      {% for i in (1..8) %}
+        {% unless existing_semesters contains i %}
+          <div class="semester-card disabled">
+            <div class="semester-icon">
+              <i class="fas fa-clock"></i>
+            </div>
+            <div class="semester-content">
+              <h3>Semester {{ i }}</h3>
+              <p>Coming Soon</p>
+              <div class="meta">Not available yet</div>
+            </div>
+          </div>
+        {% endunless %}
+      {% endfor %}
+    {% else %}
+      {% comment %} Debug and error handling {% endcomment %}
+      <div class="error-message">
+        <p>No semesters found for this branch.</p>
+        <p><small>Debug: Looking for college "{{ page.college_slug }}" and branch "{{ page.branch_slug }}"</small></p>
+        <a href="{{ '/colleges/' | append: page.college_slug | relative_url }}" class="btn-secondary">Back to College</a>
+      </div>
+    {% endif %}
   </section>
 </div>

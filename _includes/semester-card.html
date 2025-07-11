@@ -1,10 +1,13 @@
-<div class="semester-card">
+<a href="{{ '/colleges/' | append: include.college_slug | append: '/' | append: include.branch_slug | append: '/' | append: include.semester.slug | append: '/' | relative_url }}" class="semester-card">
   <div class="semester-icon">
     <i class="fas fa-book-open"></i>
   </div>
   <div class="semester-content">
-    <h2 class="semester-title">Semester {{ include.number }}</h2>
-    <p class="semester-description">{{ include.description }}</p>
-    <a href="{{ '/semesters/' | append: include.id | relative_url }}" class="btn-view">View Semester</a>
+    <h3>Semester {{ include.semester.number }}</h3>
+    <p>View subjects and Previous Year Question Papers</p>
+    <div class="meta">
+      {% assign subject_count = include.semester.subjects | size %}
+      {{ subject_count }} subject{% if subject_count != 1 %}s{% endif %} available
+    </div>
   </div>
-</div>
+</a>
