@@ -2,11 +2,13 @@
   slug: ymca
   id: ymca # This must match exactly with page.name
   description: Explore branches and Previous Year Question Papers
+  keywords: ["jc bose", "university", "ymca", "engineering"]
   branches:
     - name: computer-engineering
       slug: computer-engineering
       id: computer-engineering
       description: Computer Engineering Branch
+      keywords: ["computer", "programming", "software", "hardware"]
       icon: laptop-code
       semesters:
         - number: 3
@@ -16,16 +18,21 @@
           subjects:
             - name: Analog Electronic Circuit
               description: Study of electronic circuits and devices
+              keywords: ["electronics", "circuits", "analog", "devices"]
               slug: aec
               id: aec
               pyqs:
                 - year: 2024
                   file: ymca-aec-2024.pdf
                   id: ymca-aec-2024  # Add this unique identifier
+                  difficulty: "intermediate"
+                  exam_type: "semester"
                   pages: 8
                   title: "Applied Electronic Circuit 2024"
             - name: Calculus and Ordinary Differential Equations
               description: Mathematical concepts in engineering
+              keywords: ["calculus", "differential", "equations", "mathematics"]
+              icon: calculator
               slug: cde
               id: cde
               pyqs:
@@ -38,10 +45,13 @@
           slug: sem4
           id: sem4
           description: Subjects for Semester 4
+          keywords: ["semester 4", "engineering", "subjects"]
           subjects:
             - name: Computer Organization and Architecture
               id: coa
               description: Fundamentals of computer systems
+              keywords: ["computer", "organization", "architecture"]
+              icon: desktop
               slug: coa
               pyqs:
                 - year: 2024
@@ -58,16 +68,21 @@
       slug: computer-engineering
       id: computer-engineering
       description: Computer Engineering Branch
+      keywords: ["computer", "programming", "software", "hardware"]
       icon: microchip
       semesters:
         - number: 6
           slug: sem6
+          id: sem6
+          keywords: ["computer", "engineering", "semester 6"]
           description: Subjects for Semester 6
           subjects:
             - name: Digital Logic Design
               slug: digital-logic-design
               id: digital-logic-design
               description: Fundamentals of digital circuits
+              keywords: ["digital", "logic", "design", "circuits"]
+              icon: circuit-board
               pyqs:
                 - year: 2022
                   file: vit-bhopal-digital-logic-design-2022.pdf
