@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 # GitHub Pages compatible Jekyll version
-# gem "github-pages", "~> 228", group: :jekyll_plugins
+gem "github-pages", "~> 231", group: :jekyll_plugins
 
 # If you have any plugins, put them here!
 group :jekyll_plugins do
@@ -26,14 +26,16 @@ gem "http_parser.rb", "~> 0.6.0", :platforms => [:jruby]
 
 
 # Add webrick for Ruby 3.0+ compatibility
+# Custom dependencies (optional, only if needed locally)
+# Comment out gems not supported by github-pages for GitHub Pages builds
 gem "webrick", "~> 1.7"
 
-gem "csv"
-gem "faraday-retry"
-gem "base64"
-gem "logger"
-gem "rexml"
-gem "ipaddr"
-gem "bigdecimal"
+# gem "csv"
+# gem "faraday-retry"
+# gem "base64"
+# gem "logger"
+# gem "rexml"
+# gem "ipaddr"
+# gem "bigdecimal"
 
-gem 'kramdown-parser-gfm'
+# gem 'kramdown-parser-gfm'
