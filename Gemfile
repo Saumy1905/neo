@@ -30,12 +30,12 @@ gem "http_parser.rb", "~> 0.6.0", :platforms => [:jruby]
 # Comment out gems not supported by github-pages for GitHub Pages builds
 gem "webrick", "~> 1.7"
 
-# gem "csv"
-# gem "faraday-retry"
-# gem "base64"
-# gem "logger"
-# gem "rexml"
-# gem "ipaddr"
-# gem "bigdecimal"
+gem "csv"
+gem "faraday-retry"
+gem "base64"
+gem "logger"
+gem "rexml"
+gem "ipaddr"
+gem "bigdecimal"
 
-# gem 'kramdown-parser-gfm'
+gem 'kramdown-parser-gfm'
