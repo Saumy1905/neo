@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-  // ===== EXISTING FUNCTIONALITY (PRESERVED) =====
   
   // Toggle mobile menu
   const menuToggle = document.querySelector('.menu-toggle');
@@ -80,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
   
-  // PDF viewer functionality (existing)
+  // PDF viewer functionality
   const fullscreenBtn = document.getElementById('fullscreen-btn');
   const pdfViewer = document.getElementById('pdf-viewer');
   const pdfIframe = document.getElementById('pdf-iframe');
@@ -112,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // ===== NEW ENHANCED FEATURES =====
+  // ===== [Search] [Animation] =====
   
   // Initialize enhanced search functionality
   initializeEnhancedSearch();
