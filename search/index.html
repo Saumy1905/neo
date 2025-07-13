@@ -1,0 +1,207 @@
+---
+layout: default
+title: "Search PYQs - PYQFort"
+description: "Search through our comprehensive PYQ library with advanced filters and options."
+---
+
+<div class="search-page">
+  <!-- Search Header -->
+  <section class="search-header">
+    <div class="container">
+      <div class="header-content">
+        <h1>Search PYQs</h1>
+        <p class="header-subtitle">Find exactly what you need with our powerful search functionality and advanced filtering options.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Advanced Search Form -->
+  <section class="search-form-section">
+    <div class="container">
+      <div class="search-form-container">
+        <form class="advanced-search-form" id="search-form">
+          <!-- Main Search -->
+          <div class="search-row">
+            <div class="search-field-group">
+              <label for="main-search">Search Terms</label>
+              <div class="search-input-container">
+                <input type="text" id="main-search" name="query" placeholder="Enter keywords, subjects, or college names..." class="search-input-main">
+                <button type="submit" class="search-submit-btn">
+                  <span class="search-icon">🔍</span>
+                  <span class="search-text">Search</span>
+                </button>
+              </div>
+              <small class="search-help">Search in subjects, colleges, and PDF content</small>
+            </div>
+          </div>
+
+          <!-- Advanced Filters -->
+          <div class="search-filters">
+            <div class="filters-header">
+              <h3>Advanced Filters</h3>
+              <button type="button" class="filters-toggle" onclick="toggleFilters()">
+                <span class="toggle-text">Show Filters</span>
+                <span class="toggle-icon">▼</span>
+              </button>
+            </div>
+
+            <div class="filters-content" id="filters-content">
+              <div class="filter-row">
+                <div class="filter-group">
+                  <label for="college-filter">College</label>
+                  <select id="college-filter" name="college">
+                    <option value="">All Colleges</option>
+                    {% for college in site.data.colleges %}
+                    <option value="{{ college.slug }}">{{ college.name }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+
+                <div class="filter-group">
+                  <label for="branch-filter">Branch</label>
+                  <select id="branch-filter" name="branch">
+                    <option value="">All Branches</option>
+                    <option value="computer-engineering">Computer Engineering</option>
+                    <option value="cse">Computer Science</option>
+                  </select>
+                </div>
+
+                <div class="filter-group">
+                  <label for="semester-filter">Semester</label>
+                  <select id="semester-filter" name="semester">
+                    <option value="">All Semesters</option>
+                    {% for i in (1..8) %}
+                    <option value="sem{{ i }}">Semester {{ i }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+
+              <div class="filter-row">
+                <div class="filter-group">
+                  <label for="year-filter">Year</label>
+                  <select id="year-filter" name="year">
+                    <option value="">All Years</option>
+                    {% assign current_year = site.time | date: '%Y' | plus: 0 %}
+                    {% for year in (2020..current_year) reversed %}
+                    <option value="{{ year }}">{{ year }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+
+                <div class="filter-group">
+                  <label for="sort-by">Sort By</label>
+                  <select id="sort-by" name="sort">
+                    <option value="relevance">Relevance</option>
+                    <option value="title">Subject (A-Z)</option>
+                    <option value="year">Year (Newest)</option>
+                    <option value="college">College</option>
+                  </select>
+                </div>
+
+                <div class="filter-group">
+                  <label>&nbsp;</label>
+                  <button type="button" class="btn btn-outline" onclick="clearFilters()">
+                    <span class="btn-icon">🔄</span>
+                    <span class="btn-text">Clear Filters</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Search Results -->
+  <section class="search-results-section">
+    <div class="container">
+      <!-- Search Status -->
+      <div class="search-status" id="search-status">
+        <div class="status-info">
+          <span class="results-count" id="results-count">Ready to search</span>
+          <span class="search-time" id="search-time"></span>
+        </div>
+        <div class="view-controls">
+          <button class="view-btn active" data-view="list" onclick="changeResultsView('list')">
+            <span class="view-icon">☰</span>
+            <span class="view-label">List</span>
+          </button>
+          <button class="view-btn" data-view="grid" onclick="changeResultsView('grid')">
+            <span class="view-icon">⊞</span>
+            <span class="view-label">Grid</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Active Search Filters -->
+      <div class="active-search-filters" id="active-filters" style="display: none;">
+        <span class="filters-label">Active filters:</span>
+        <div class="filter-tags" id="filter-tags"></div>
+        <button class="clear-all-filters" onclick="clearAllSearchFilters()">Clear All</button>
+      </div>
+
+      <!-- Results Container -->
+      <div class="results-container">
+        <!-- Welcome State -->
+        <div class="search-welcome" id="search-welcome">
+          <div class="welcome-content">
+            <div class="welcome-icon">🔍</div>
+            <h2>Search Our PYQ Library</h2>
+            <p>Use the search form above to find PYQs by subjects, colleges, years, and more. Our advanced search helps you discover exactly what you need.</p>
+            
+            <div class="quick-searches">
+              <h3>Quick Searches:</h3>
+              <div class="quick-search-buttons">
+                <button class="quick-search-btn" onclick="quickSearch('', 'ymca')">
+                  <span class="btn-icon">🏫</span>
+                  <span class="btn-text">YMCA Papers</span>
+                </button>
+                <button class="quick-search-btn" onclick="quickSearch('', '', 'computer-engineering')">
+                  <span class="btn-icon">💻</span>
+                  <span class="btn-text">Computer Engineering</span>
+                </button>
+                <button class="quick-search-btn" onclick="quickSearch('', '', '', '2024')">
+                  <span class="btn-icon">📅</span>
+                  <span class="btn-text">Latest Papers</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Loading State -->
+        <div class="search-loading" id="search-loading" style="display: none;">
+          <div class="loading-spinner"></div>
+          <p>Searching PYQs...</p>
+        </div>
+
+        <!-- Results List -->
+        <div class="search-results" id="search-results" style="display: none;">
+          <div class="results-list" id="results-list"></div>
+        </div>
+
+        <!-- No Results State -->
+        <div class="search-no-results" id="no-results" style="display: none;">
+          <div class="no-results-content">
+            <div class="no-results-icon">🔍</div>
+            <h2>No PYQs Found</h2>
+            <p>We couldn't find any PYQs matching your search criteria. Try adjusting your search terms or filters.</p>
+            
+            <div class="no-results-actions">
+              <button class="btn btn-primary" onclick="clearAllSearchFilters()">
+                <span class="btn-icon">🔄</span>
+                <span class="btn-text">Clear All Filters</span>
+              </button>
+              <a href="{{ '/' | relative_url }}" class="btn btn-outline">
+                <span class="btn-icon">🏠</span>
+                <span class="btn-text">Back to Home</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
