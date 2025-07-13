@@ -25,6 +25,7 @@ exclude:
   - vendor/gems/
   - vendor/ruby/
   - README.md
+  - DATA_DUMP
 
 # Collections
 collections:
