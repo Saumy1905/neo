@@ -1,8 +1,8 @@
 # Site settings
 title: PYQFort
 description: A centralized collection of Previous Year Question Papers (PYQs) for B.Tech courses
-baseurl: "/neo" # the subpath of your site, e.g. /blog
-url: "https://saumy1905.github.io" # the base hostname & protocol for your site
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "" # the base hostname & protocol for your site
 
 # Build settings
 markdown: kramdown
