@@ -162,6 +162,8 @@ function loadPYQData() {
   try {
     // Use the globally available data from window.COLLEGE_DATA
     const collegeData = window.COLLEGE_DATA;
+    // Get the baseurl passed from Jekyll, or default to an empty string
+    const baseUrl = window.site?.baseurl || '';
     
     if (!collegeData || !collegeData.colleges) {
       console.warn('Global college data not found. Make sure college-data.js is loaded before main.js');
@@ -208,9 +210,10 @@ function loadPYQData() {
                 difficulty: escapeJavaScript(pyq.difficulty || ''),
                 examType: escapeJavaScript(pyq.exam_type || ''),
                 // Build URLs for navigation
-                url: `/colleges/${college.slug}/${branch.slug}/${semester.slug}/${subject.slug}/`,
-                pdfUrl: `/pdf-viewer/${college.slug}/${branch.slug}/${semester.slug}/${subject.slug}/${pyq.id}/`,
-                downloadUrl: `/assets/pdfs/${pyq.file}`
+                // FIXED: Prepend the baseUrl to all generated URLs
+                url: `${baseUrl}/colleges/${college.slug}/${branch.slug}/${semester.slug}/${subject.slug}/`,
+                pdfUrl: `${baseUrl}/pdf-viewer/${college.slug}/${branch.slug}/${semester.slug}/${subject.slug}/${pyq.id}/`,
+                downloadUrl: `${baseUrl}/assets/pdfs/${pyq.file}`
               });
             });
           });
