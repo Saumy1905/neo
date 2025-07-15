@@ -3,106 +3,22 @@ layout: default
 title: Add PYQs
 ---
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PYQFort - The Unified Open Source PYQs Repository</title>
-</head>
-<body>
 <div class="container">
   <div class="breadcrumbs">
-    <a href="/">Home</a> &raquo;
-    <span>About</span>
+    <a href="{{ '/' | relative_url }}">Home</a> »
+    <span>Add PYQs</span>
   </div>
   
   <div class="about-container">
     <div class="about-header">
-      <h1 class="page-title">📚 PYQFort - The Unified Open Source PYQs Repository</h1>
-      <p class="about-tagline">Welcome to <strong>PYQFort</strong>, an open-source initiative under the <strong>Praxian Projects</strong> theme! �</p>
+      <h1 class="page-title">📚 Contribute</h1>
+      <p class="about-tagline">Contribute to PYQFort</p>
     </div>
     
     <div class="about-content">
-      <p>This repository aims to create a <strong>centralized collection</strong> of <strong>Previous Year Question Papers (PYQs)</strong> for all <strong>B.Tech. courses</strong> of:</p>
+      <p>You can contribute to PYQFort as per the guidelines stated below</p>
 
-      <table>
-        <thead>
-          <tr>
-            <th>🧊 North India</th>
-            <th>🏙️ Delhi NCR</th>
-            <th>🌍 Central India</th>
-            <th>🔥 South India</th>
-            <th>🌊 East India</th>
-            <th>🏜️ West India</th>
-            <th>🏞️ North-East India</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>NIT-Kurukshetra (Haryana)</td>
-            <td>IGDTUW, Delhi</td>
-            <td>ABV-IIITM, Gwalior (Madhya Pradesh)</td>
-            <td>VIT Chennai (Tamil Nadu)</td>
-            <td>Heritage Institute of Technology, Kolkata (WB)</td>
-            <td>Walchand College of Engineering, Sangli (Maharashtra)</td>
-            <td>IIIT-Manipur (Manipur)</td>
-          </tr>
-          <tr>
-            <td>IIIT-Kota (Rajasthan)</td>
-            <td>J.C. Bose UST, YMCA, Faridabad</td>
-            <td>MANIT-Bhopal (Madhya Pradesh)</td>
-            <td>Chennai Institute of Technology, Kanchipuram (Tamil Nadu)</td>
-            <td>KIIT, Bhubaneswar (Odisha)</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>IIIT-Sonepat (Haryana)</td>
-            <td></td>
-            <td>VIT Bhopal University (Madhya Pradesh)</td>
-            <td>Velammal College of Engineering &amp; Tech., Tamil Nadu</td>
-            <td>NIT Sikkim (Sikkim)</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>RTU, Kota (Rajasthan)</td>
-            <td></td>
-            <td></td>
-            <td>Anna University, Chennai (Tamil Nadu)</td>
-            <td>IIIT-Ranchi (Jharkhand)</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>PSIT, Kanpur (Uttar Pradesh)</td>
-            <td></td>
-            <td></td>
-            <td>VRSEC, Andhra Pradesh</td>
-            <td>ITER, SOA University, Bhubaneswar (Odisha)</td>
-            <td></td>
-            <td></td>
-          </tr>
-        </tbody>
-      </table>
-
-      <p>Your contributions and support can help <strong>enhance accessibility</strong> for students and build a strong foundation for future <strong>open-source academic projects</strong>. We <strong>highly encourage you</strong> to <strong>fork and clone</strong> this repository—your participation will fuel future innovations under <strong>Praxian Projects</strong>! 💡</p>
-
-      <hr>
-
-      <h2>🔽 How to Use &amp; Download PYQs</h2>
-
-      <h3>📱 Case 1: Downloading PYQs on a Mobile Browser</h3>
-      <ol>
-        <li>Open this repository in your mobile browser.</li>
-        <li>Navigate to the specific subject folder containing the PYQs.</li>
-        <li>Click on the <strong>file</strong> you wish to download.</li>
-        <li>Click on the <strong>Download</strong> button (or press and hold the file, then select "Download").</li>
-        <li>The file will be saved to your device for offline access.</li>
-      </ol>
-
-      <h2>🌟 Case 2: Contributing to PYQFort (Under Praxian Projects)</h2>
+      <h2>Primary contributions (Technical)</h2>
 
       <h3>🔄 Cloning the Repository on Your Laptop</h3>
       <p>To contribute, first <strong>fork</strong> the repository and then clone your fork:</p>
@@ -133,30 +49,31 @@ git remote -v</code></pre>
       <h3>🔄 Submitting a Pull Request</h3>
       <ol>
         <li>Go to your forked repository on GitHub.</li>
-        <li>Click on <strong>"Compare &amp; pull request"</strong>.</li>
+        <li>Click on <strong>"Compare & pull request"</strong>.</li>
         <li>Add a brief description of your changes.</li>
         <li>Click <strong>"Create pull request"</strong>.</li>
       </ol>
 
-      <p>If you are contributing to this project, then make sure</p>
+      <p>If you are contributing to this project, then follow these guidelines:</p>
+
+      <h4>[Data Dumping]</h4>
       <ol>
-        <li>Not to make any changes in the previously added college directories</li>
+        <li>Add your college directory in the <code>DATA_DUMP</code> folder in which other colleges are added</li>
         <li>Not to add new college directory inside some other college</li>
-        <li>Add your college directory in the main folder in which other college are added</li>
         <li>Not to add irrelevant content inside the college repository</li>
+      </ol>
+
+      <h4>[Data Structure]</h4>
+      <ol>
+        <li>We'll later structure the data from the <code>DATA_DUMP</code> directory and index it to PYQFort</li>
       </ol>
 
       <p>🚀 Your contribution will be reviewed and merged into the main repository!</p>
 
-      <h2>LICENSE</h2>
-      <p><a href="LICENSE">GNU GPLv3</a></p>
-
       <div class="about-cta">
-        <a href="/" class="btn-primary">Access PYQs</a>
-        <a href="/contact/" class="btn-secondary">Contact</a>
+        <a href="{{ '/' | relative_url }}" class="btn-primary">Access PYQs</a>
+        <a href="{{ '/contact/' | relative_url }}" class="btn-secondary">Contact</a>
       </div>
     </div>
   </div>
 </div>
-</body>
-</html>
