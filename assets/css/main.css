@@ -2009,3 +2009,69 @@ h1, h2, h3, h4, h5, h6 {
     flex-direction: column;
   }
 }
+
+
+
+
+
+/* Mobile hints for PDF viewer */
+.mobile-hint {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: var(--warning-bg, #fff3cd);
+  border: 1px solid var(--warning-border, #ffeaa7);
+  border-radius: 6px;
+  display: none;
+}
+
+.mobile-hint-content {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--warning-color, #856404);
+  font-size: 0.9rem;
+}
+
+.mobile-hint-content i {
+  color: var(--warning-accent, #f39c12);
+  font-size: 1.2rem;
+}
+
+.mobile-hint-content strong {
+  color: var(--primary-color, #3498db);
+}
+
+.mobile-fallback-message {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: var(--info-bg, #d1ecf1);
+  border-radius: 6px;
+  color: var(--info-color, #0c5460);
+  font-size: 0.9rem;
+}
+
+.mobile-fallback-message p {
+  margin: 0.5rem 0;
+}
+
+/* Show mobile hints only on mobile devices */
+@media (max-width: 768px) {
+  .mobile-hint {
+    display: block;
+  }
+}
+
+/* Dark theme support */
+.dark-theme .mobile-hint {
+  background: var(--warning-bg, #3d3d00);
+  border-color: var(--warning-border, #666600);
+}
+
+.dark-theme .mobile-hint-content {
+  color: var(--warning-color, #ffeb3b);
+}
+
+.dark-theme .mobile-fallback-message {
+  background: var(--info-bg, #1e3a8a);
+  color: var(--info-color, #bfdbfe);
+}
