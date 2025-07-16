@@ -103,7 +103,7 @@ let pdfDoc = null;
 let pageNum = 1;
 let pageIsRendering = false;
 let pageNumIsPending = null;
-let scale = 1;
+let scale = 5.0; // Set to 500% by default
 let rotation = 0;
 
 // PDF Viewer initialization
@@ -124,7 +124,7 @@ function initializePDFViewer() {
   // Set up PDF.js viewer
   initializePDFJS();
   
-  // Set up viewer switching - REMOVED AUTO-SWITCH TO PDF.js ON MOBILE
+  // Set up viewer switching
   setupViewerSwitching();
   
   // Set up fullscreen functionality
@@ -160,8 +160,8 @@ function switchViewer(viewerType) {
   
   // Update description
   const descriptions = {
-    iframe: 'Default browser PDF viewer - may prompt to open in external app on mobile devices',
-    pdfjs: 'Advanced PDF.js viewer - renders PDF directly in browser on all devices including mobile'
+    iframe: 'Default browser PDF viewer with standard controls',
+    pdfjs: 'Advanced PDF.js viewer with enhanced features and better mobile support'
   };
   
   const descElement = document.getElementById('viewer-description');
@@ -170,51 +170,27 @@ function switchViewer(viewerType) {
       `<i class="fas fa-info-circle"></i> ${descriptions[viewerType]}`;
   }
   
-  // If switching to PDF.js, load the PDF
+  // If switching to PDF.js, load the PDF with 500% zoom
   if (viewerType === 'pdfjs' && !pdfDoc) {
+    scale = 5.0; // Set to 500% zoom
     loadPDFJS();
+  } else if (viewerType === 'pdfjs' && pdfDoc) {
+    // If PDF already loaded, just update zoom to 500%
+    scale = 5.0;
+    updateZoomSelect();
+    queueRenderPage(pageNum);
   }
 }
 
-// function setupViewerSwitching() {
-//   // REMOVED: Auto-switch to PDF.js on mobile devices
-//   // Keep iframe as default for all devices
-  
-//   // Add helpful message for mobile users
-//   if (window.innerWidth <= 768) {
-//     const viewerInfo = document.querySelector('.viewer-info');
-//     if (viewerInfo) {
-//       const mobileHint = document.createElement('div');
-//       mobileHint.className = 'mobile-hint';
-//       mobileHint.innerHTML = `
-//         <div class="mobile-hint-content">
-//           <i class="fas fa-mobile-alt"></i>
-//           <span>On mobile? If the PDF doesn't display, try the <strong>PDF.js Viewer</strong> for better mobile compatibility.</span>
-//         </div>
-//       `;
-//       viewerInfo.appendChild(mobileHint);
-//     }
-//   }
-// }
+function setupViewerSwitching() {
+  // Keep iframe as default for all devices
+  // No auto-switching behavior
+}
 
 function showIframeFallback() {
   const fallback = document.querySelector('.iframe-fallback');
   if (fallback) {
     fallback.style.display = 'flex';
-  }
-  
-  // Show additional mobile-specific message
-  if (window.innerWidth <= 768) {
-    const fallbackContent = fallback.querySelector('.fallback-content');
-    if (fallbackContent) {
-      const mobileMessage = document.createElement('div');
-      mobileMessage.className = 'mobile-fallback-message';
-      mobileMessage.innerHTML = `
-        <p><i class="fas fa-info-circle"></i> Mobile devices often don't support inline PDF viewing.</p>
-        <p>For the best mobile experience, try the <strong>PDF.js Viewer</strong> option above.</p>
-      `;
-      fallbackContent.appendChild(mobileMessage);
-    }
   }
 }
 
@@ -289,6 +265,9 @@ function loadPDFJS() {
     return;
   }
   
+  // Set default zoom to 500%
+  scale = 5.0;
+  
   pdfjsLib.getDocument(pdfUrl).promise.then(pdfDoc_ => {
     pdfDoc = pdfDoc_;
     const pageCount = document.getElementById('page-count');
@@ -302,6 +281,9 @@ function loadPDFJS() {
       pageNumInput.max = pdfDoc.numPages;
     }
     
+    // Set zoom select to 500%
+    updateZoomSelect();
+    
     // Render first page
     renderPage(pageNum);
     
@@ -311,6 +293,23 @@ function loadPDFJS() {
     showError('Failed to load PDF with PDF.js viewer');
     if (loading) loading.style.display = 'none';
   });
+}
+
+function updateZoomSelect() {
+  const zoomSelect = document.getElementById('zoom-select');
+  if (zoomSelect) {
+    // Check if 500% option exists, if not create it
+    let option500 = zoomSelect.querySelector('option[value="5"]');
+    if (!option500) {
+      option500 = document.createElement('option');
+      option500.value = '5';
+      option500.textContent = '500%';
+      zoomSelect.appendChild(option500);
+    }
+    
+    // Set to 500%
+    zoomSelect.value = '5';
+  }
 }
 
 function renderPage(num) {
@@ -1157,4 +1156,5 @@ window.debugPYQData = function() {
   console.log('🌐 Global data source:', window.COLLEGE_DATA ? 'Available' : 'Missing');
   console.log('📱 Current PDF viewer:', currentViewer);
   console.log('📄 PDF document loaded:', pdfDoc ? 'Yes' : 'No');
+  console.log('🔍 Current zoom scale:', scale);
 };
