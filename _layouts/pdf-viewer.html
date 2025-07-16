@@ -5,10 +5,10 @@ layout: default
   <!-- Breadcrumbs -->
   <nav class="breadcrumbs">
     <a href="{{ '/' | relative_url }}">Home</a> &gt;
-    <a href="{{ '/colleges/' | append: page.college | relative_url }}">{{ page.college | replace: 'ymca', 'JC Bose University' | replace: 'vit-bhopal', 'VIT Bhopal University' }}</a> &gt;
-    <a href="{{ '/colleges/' | append: page.college | append: '/' | append: page.branch | relative_url }}">{{ page.branch | replace: '-', ' ' | capitalize }}</a> &gt;
-    <a href="{{ '/colleges/' | append: page.college | append: '/' | append: page.branch | append: '/' | append: page.semester | relative_url }}">{{ page.semester | replace: 'sem', 'Semester ' }}</a> &gt;
-    <a href="{{ '/colleges/' | append: page.college | append: '/' | append: page.branch | append: '/' | append: page.semester | append: '/' | append: page.subject | relative_url }}">{{ page.subject | replace: '-', ' ' | capitalize }}</a> &gt;
+    <a href="{{ '/colleges/' | append: page.college_slug | relative_url }}">{{ page.college_name }}</a> &gt;
+    <a href="{{ '/colleges/' | append: page.college_slug | append: '/' | append: page.branch_slug | relative_url }}">{{ page.branch_name }}</a> &gt;
+    <a href="{{ '/colleges/' | append: page.college_slug | append: '/' | append: page.branch_slug | append: '/' | append: page.semester_slug | relative_url }}">{{ page.semester_name }}</a> &gt;
+    <a href="{{ '/colleges/' | append: page.college_slug | append: '/' | append: page.branch_slug | append: '/' | append: page.semester_slug | append: '/' | append: page.subject_slug | relative_url }}">{{ page.subject_name }}</a> &gt;
     <span>{{ page.title }}</span>
   </nav>
 
@@ -16,72 +16,208 @@ layout: default
   <header class="pdf-viewer-header">
     <h1 class="pdf-title">{{ page.title }} ({{ page.year }})</h1>
     <div class="pdf-meta">
-      <span>{{ page.college | replace: 'ymca', 'JC Bose University' | replace: 'vit-bhopal', 'VIT Bhopal University' }}</span>
-      <span>{{ page.branch | replace: '-', ' ' | capitalize }}</span>
-      <span>{{ page.semester | replace: 'sem', 'Semester ' }}</span>
+      <span>{{ page.college_name }}</span>
+      <span>{{ page.branch_name }}</span>
+      <span>{{ page.semester_name }}</span>
       <span>{{ page.pages | default: 'N/A' }} pages</span>
     </div>
   </header>
 
-  <!-- PDF Actions Bar -->
+  <!-- PDF Controls -->
+  <div class="pdf-controls">
+    <button id="prev-page" class="pdf-btn" disabled>
+      <i class="fas fa-chevron-left"></i> Previous
+    </button>
+    <span id="page-info">Page <span id="current-page">1</span> of <span id="total-pages">--</span></span>
+    <button id="next-page" class="pdf-btn" disabled>
+      Next <i class="fas fa-chevron-right"></i>
+    </button>
+    <div class="pdf-zoom-controls">
+      <button id="zoom-out" class="pdf-btn">
+        <i class="fas fa-search-minus"></i>
+      </button>
+      <span id="zoom-level">100%</span>
+      <button id="zoom-in" class="pdf-btn">
+        <i class="fas fa-search-plus"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- PDF Canvas Container -->
+  <div class="pdf-viewer-container" id="pdf-viewer-container">
+    <div class="pdf-loading" id="pdf-loading">
+      <div class="loading-spinner"></div>
+      <p>Loading PDF...</p>
+    </div>
+    <canvas id="pdf-canvas" class="pdf-canvas"></canvas>
+  </div>
+
+  <!-- PDF Actions -->
   <div class="pdf-actions-bar">
-    <button id="fullscreen-btn" class="btn-fullscreen"><i class="fas fa-expand"></i> Fullscreen</button>
-    <button id="print-btn" class="btn-print"><i class="fas fa-print"></i> Print</button>
-    <a href="{{ page.file | relative_url }}" class="btn-download"><i class="fas fa-download"></i> Download</a>
+    <button id="fullscreen-btn" class="btn-fullscreen">
+      <i class="fas fa-expand"></i> Fullscreen
+    </button>
+    <a href="{{ page.file | relative_url }}" class="btn-download" download>
+      <i class="fas fa-download"></i> Download
+    </a>
   </div>
-
-  <!-- PDF Viewer -->
-  <div class="pdf-viewer-container" id="pdf-viewer">
-    <iframe src="{{ page.file | relative_url }}#toolbar=1" class="pdf-iframe" id="pdf-iframe" title="PDF Viewer for {{ page.title }}"></iframe>
-  </div>
-
-  <!-- Navigation -->
-  <nav class="pdf-navigation">
-    {% comment %} Navigate to the correct nested data structure {% endcomment %}
-    {% assign college_data = site.data.colleges | where: "slug", page.college | first %}
-    {% assign branch_data = college_data.branches | where: "slug", page.branch | first %}
-    {% assign semester_data = branch_data.semesters | where: "slug", page.semester | first %}
-    {% assign subject_data = semester_data.subjects | where: "slug", page.subject | first %}
-    
-    {% if subject_data and subject_data.pyqs %}
-      {% assign papers = subject_data.pyqs | sort: 'year' %}
-      {% assign current_index = -1 %}
-      
-      {% comment %} Find current paper index {% endcomment %}
-      {% for pyq in papers %}
-        {% capture pyq_id %}{{ page.college }}-{{ page.subject }}-{{ pyq.year }}{% endcapture %}
-        {% if pyq_id == page.name %}
-          {% assign current_index = forloop.index0 %}
-          {% break %}
-        {% endif %}
-      {% endfor %}
-      
-      {% comment %} Calculate navigation indices safely {% endcomment %}
-      {% assign prev_index = current_index | minus: 1 %}
-      {% assign next_index = current_index | plus: 1 %}
-      {% assign max_index = papers.size | minus: 1 %}
-      
-      {% comment %} Previous navigation {% endcomment %}
-      {% if current_index > 0 %}
-        {% assign prev_paper = papers[prev_index] %}
-        {% capture prev_url %}/pdf-viewer/{{ page.college }}/{{ page.branch }}/{{ page.semester }}/{{ page.subject }}/{{ page.college }}-{{ page.subject }}-{{ prev_paper.year }}{% endcapture %}
-        <a href="{{ prev_url | relative_url }}" class="nav-prev"><i class="fas fa-chevron-left"></i> Previous</a>
-      {% else %}
-        <span class="nav-prev" style="visibility: hidden;"><i class="fas fa-chevron-left"></i> Previous</span>
-      {% endif %}
-      
-      {% comment %} Next navigation {% endcomment %}
-      {% if current_index < max_index and current_index >= 0 %}
-        {% assign next_paper = papers[next_index] %}
-        {% capture next_url %}/pdf-viewer/{{ page.college }}/{{ page.branch }}/{{ page.semester }}/{{ page.subject }}/{{ page.college }}-{{ page.subject }}-{{ next_paper.year }}{% endcapture %}
-        <a href="{{ next_url | relative_url }}" class="nav-next">Next <i class="fas fa-chevron-right"></i></a>
-      {% else %}
-        <span class="nav-next" style="visibility: hidden;">Next <i class="fas fa-chevron-right"></i></span>
-      {% endif %}
-    {% else %}
-      {% comment %} No navigation if no papers found {% endcomment %}
-      <span class="nav-prev" style="visibility: hidden;"><i class="fas fa-chevron-left"></i> Previous</span>
-      <span class="nav-next" style="visibility: hidden;">Next <i class="fas fa-chevron-right"></i></span>
-    {% endif %}
-  </nav>
 </div>
+
+<!-- PDF.js Integration Script -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const pdfUrl = '{{ page.file | relative_url }}';
+  const pdfCanvas = document.getElementById('pdf-canvas');
+  const pdfLoading = document.getElementById('pdf-loading');
+  const pdfContainer = document.getElementById('pdf-viewer-container');
+  
+  let pdfDoc = null;
+  let currentPage = 1;
+  let totalPages = 0;
+  let scale = 1.0;
+  let renderContext = null;
+  
+  // Load PDF
+  pdfjsLib.getDocument(pdfUrl).promise.then(function(pdf) {
+    pdfDoc = pdf;
+    totalPages = pdf.numPages;
+    
+    // Update UI
+    document.getElementById('total-pages').textContent = totalPages;
+    document.getElementById('current-page').textContent = currentPage;
+    
+    // Hide loading, show canvas
+    pdfLoading.style.display = 'none';
+    pdfCanvas.style.display = 'block';
+    
+    // Enable navigation buttons
+    updateNavigationButtons();
+    
+    // Render first page
+    renderPage(currentPage);
+    
+  }).catch(function(error) {
+    console.error('Error loading PDF:', error);
+    pdfLoading.innerHTML = '<p>Error loading PDF. Please try downloading instead.</p>';
+  });
+  
+  // Render page function
+  function renderPage(pageNum) {
+    if (!pdfDoc) return;
+    
+    pdfDoc.getPage(pageNum).then(function(page) {
+      // Calculate scale for mobile responsiveness
+      const containerWidth = pdfContainer.clientWidth;
+      const viewport = page.getViewport({ scale: 1.0 });
+      const mobileScale = Math.min(containerWidth / viewport.width, 1.2);
+      scale = window.innerWidth < 768 ? mobileScale : 1.0;
+      
+      const scaledViewport = page.getViewport({ scale: scale });
+      
+      // Set canvas dimensions
+      pdfCanvas.width = scaledViewport.width;
+      pdfCanvas.height = scaledViewport.height;
+      
+      // Render page
+      const renderContext = {
+        canvasContext: pdfCanvas.getContext('2d'),
+        viewport: scaledViewport
+      };
+      
+      page.render(renderContext);
+      
+      // Update page info
+      document.getElementById('current-page').textContent = pageNum;
+      document.getElementById('zoom-level').textContent = Math.round(scale * 100) + '%';
+    });
+  }
+  
+  // Navigation functions
+  function updateNavigationButtons() {
+    document.getElementById('prev-page').disabled = currentPage <= 1;
+    document.getElementById('next-page').disabled = currentPage >= totalPages;
+  }
+  
+  // Event listeners
+  document.getElementById('prev-page').addEventListener('click', function() {
+    if (currentPage > 1) {
+      currentPage--;
+      renderPage(currentPage);
+      updateNavigationButtons();
+    }
+  });
+  
+  document.getElementById('next-page').addEventListener('click', function() {
+    if (currentPage < totalPages) {
+      currentPage++;
+      renderPage(currentPage);
+      updateNavigationButtons();
+    }
+  });
+  
+  document.getElementById('zoom-in').addEventListener('click', function() {
+    scale *= 1.2;
+    renderPage(currentPage);
+    document.getElementById('zoom-level').textContent = Math.round(scale * 100) + '%';
+  });
+  
+  document.getElementById('zoom-out').addEventListener('click', function() {
+    scale /= 1.2;
+    renderPage(currentPage);
+    document.getElementById('zoom-level').textContent = Math.round(scale * 100) + '%';
+  });
+  
+  // Fullscreen functionality
+  document.getElementById('fullscreen-btn').addEventListener('click', function() {
+    if (pdfContainer.requestFullscreen) {
+      pdfContainer.requestFullscreen();
+    } else if (pdfContainer.mozRequestFullScreen) {
+      pdfContainer.mozRequestFullScreen();
+    } else if (pdfContainer.webkitRequestFullscreen) {
+      pdfContainer.webkitRequestFullscreen();
+    } else if (pdfContainer.msRequestFullscreen) {
+      pdfContainer.msRequestFullscreen();
+    }
+  });
+  
+  // Touch gestures for mobile
+  if ('ontouchstart' in window) {
+    let touchStartX = 0;
+    let touchStartY = 0;
+    
+    pdfCanvas.addEventListener('touchstart', function(e) {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+    });
+    
+    pdfCanvas.addEventListener('touchend', function(e) {
+      const touchEndX = e.changedTouches[0].clientX;
+      const touchEndY = e.changedTouches[0].clientY;
+      const deltaX = touchEndX - touchStartX;
+      const deltaY = touchEndY - touchStartY;
+      
+      // Horizontal swipe detection
+      if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
+        if (deltaX > 0 && currentPage > 1) {
+          // Swipe right - previous page
+          currentPage--;
+          renderPage(currentPage);
+          updateNavigationButtons();
+        } else if (deltaX < 0 && currentPage < totalPages) {
+          // Swipe left - next page
+          currentPage++;
+          renderPage(currentPage);
+          updateNavigationButtons();
+        }
+      }
+    });
+  }
+  
+  // Responsive recalculation
+  window.addEventListener('resize', function() {
+    if (pdfDoc) {
+      renderPage(currentPage);
+    }
+  });
+});
+</script>

@@ -3,6 +3,20 @@
   id: ymca # This must match exactly with page.name
   description: Explore branches and Previous Year Question Papers
   keywords: ["jc bose", "university", "ymca", "engineering"]
+  # New ranking fields
+  ranking:
+    overall: 1
+    established: 1969
+    location: "Faridabad, Haryana"
+    nirf_rank: 101
+    category: "Government"
+    total_students: 8000
+    accreditation: "NAAC A+"
+  stats:
+    total_pyqs: 0  # Need to be calculated dynamically
+    total_branches: 0  # Need to be calculated dynamically
+    total_semesters: 0  # Need to be calculated dynamically
+    latest_year: 2024
   branches:
     - name: computer-engineering
       slug: computer-engineering
@@ -264,6 +278,20 @@
   slug: vit-bhopal
   id: vit-bhopal
   description: Explore branches and Previous Year Question Papers
+  # New ranking fields
+  ranking:
+    overall: 2
+    established: 2017
+    location: "Bhopal, Madhya Pradesh"
+    nirf_rank: 45
+    category: "Private"
+    total_students: 12000
+    accreditation: "NAAC A"
+  stats:
+    total_pyqs: 0  # Need to be calculated dynamically
+    total_branches: 0  # Need to be calculated dynamically
+    total_semesters: 0  # Need to be calculated dynamically
+    latest_year: 2022
   branches:
     - name: computer-engineering
       slug: computer-engineering
@@ -290,3 +318,175 @@
                   id: vit-bhopal-digital-logic-design-2022
                   pages: 10
                   title: "Digital Logic Design"
+- name: iit-delhi
+  slug: iit-delhi
+  id: iit-delhi
+  description: Explore branches and Previous Year Question Papers
+  # New ranking fields
+  ranking:
+    overall: 3
+    established: 1961
+    location: "Delhi"
+    nirf_rank: 2
+    category: "Government"
+    total_students: 12000
+    accreditation: "NAAC A++"
+  stats:
+    total_pyqs: 0  # Need to be calculated dynamically
+    total_branches: 0  # Need to be calculated dynamically
+    total_semesters: 0  # Need to be calculated dynamically
+    latest_year: 2024
+  branches:
+    - name: computer-science-engineering
+      slug: computer-science-engineering
+      id: computer-science-engineering
+      description: Computer Science Engineering Branch
+      keywords: ["computer", "science", "engineering"]
+      icon: laptop-code
+      semesters:
+        - number: 8
+          slug: sem8
+          id: sem8
+          description: Subjects for Semester 8
+          subjects:
+            - name: Machine Learning
+              slug: machine-learning
+              id: machine-learning
+              description: Introduction to machine learning concepts and algorithms
+              keywords: ["machine", "learning", "algorithms"]
+              icon: brain
+              pyqs:
+                - year: 2024
+                  file: iit-delhi-machine-learning-2024.pdf
+                  id: iit-delhi-machine-learning-2024
+                  pages: 10
+                  title: "Machine Learning"
+- name: dtu, delhi
+  slug: dtu-delhi
+  id: dtu-delhi
+  description: Explore branches and Previous Year Question Papers
+  # New ranking fields
+  ranking:
+    overall: 4
+    established: 1941
+    location: "Delhi"
+    nirf_rank: 15
+    category: "Government"
+    total_students: 10000
+    accreditation: "NAAC A"
+  stats:
+    total_pyqs: 0  # Need to be calculated dynamically
+    total_branches: 0  # Need to be calculated dynamically
+    total_semesters: 0  # Need to be calculated dynamically
+    latest_year: 2023
+  branches:
+    - name: information-technology
+      slug: information-technology
+      id: information-technology
+      description: Information Technology Branch
+      keywords: ["information", "technology", "IT"]
+      icon: network-wired
+      semesters:
+        - number: 7
+          slug: sem7
+          id: sem7
+          description: Subjects for Semester 7
+          subjects:
+            - name: Web Technologies
+              slug: web-technologies
+              id: web-technologies
+              description: Fundamentals of web development and technologies
+              keywords: ["web", "technologies", "development"]
+              icon: globe-americas
+              pyqs:
+                - year: 2023
+                  file: dtu-web-technologies-2023.pdf
+                  id: dtu-web-technologies-2023
+                  pages: 10
+                  title: "Web Technologies"
+- name: nsut main campus
+  slug: nsut-main-campus
+  id: nsut-main-campus
+  description: Explore branches and Previous Year Question Papers
+  # New ranking fields
+  ranking:
+    overall: 5
+    established: 1983
+    location: "Delhi"
+    nirf_rank: 20
+    category: "Government"
+    total_students: 9000
+    accreditation: "NAAC A"
+  stats:
+    total_pyqs: 0  # Need to be calculated dynamically
+    total_branches: 0  # Need to be calculated dynamically
+    total_semesters: 0  # Need to be calculated dynamically
+    latest_year: 2024
+  branches:
+    - name: electronics-and-communication-engineering
+      slug: electronics-and-communication-engineering
+      id: electronics-and-communication-engineering
+      description: Electronics and Communication Engineering Branch
+      keywords: ["electronics", "communication", "engineering"]
+      icon: radio
+      semesters:
+        - number: 5
+          slug: sem5
+          id: sem5
+          description: Subjects for Semester 5
+          subjects:
+            - name: Signals and Systems
+              slug: signals-and-systems
+              id: signals-and-systems
+              description: Fundamentals of signals and systems in engineering
+              keywords: ["signals", "systems", "engineering"]
+              icon: signal
+              pyqs:
+                - year: 2024
+                  file: nsut-signals-and-systems-2024.pdf
+                  id: nsut-signals-and-systems-2024
+                  pages: 10
+                  title: "Signals and Systems"
+- name: abviiitm-gwalior
+  slug: abviiitm-gwalior
+  id: abviiitm-gwalior
+  description: Explore branches and Previous Year Question Papers
+  # New ranking fields
+  ranking:
+    overall: 6
+    established: 1997
+    location: "Gwalior, Madhya Pradesh"
+    nirf_rank: 30
+    category: "Government"
+    total_students: 7000
+    accreditation: "NAAC A"
+  stats:
+    total_pyqs: 0  # Need to be calculated dynamically
+    total_branches: 0  # Need to be calculated dynamically
+    total_semesters: 0  # Need to be calculated dynamically
+    latest_year: 2023
+  branches:
+    - name: computer-science-and-engineering
+      slug: computer-science-and-engineering
+      id: computer-science-and-engineering
+      description: Computer Science and Engineering Branch
+      keywords: ["computer", "science", "engineering"]
+      icon: laptop-code
+      semesters:
+        - number: 4
+          slug: sem4
+          id: sem4
+          description: Subjects for Semester 4
+          subjects:
+            - name: Data Structures and Algorithms
+              slug: data-structures-and-algorithms
+              id: data-structures-and-algorithms
+              description: Core concepts in data organization and algorithms
+              keywords: ["data", "structures", "algorithms"]
+              icon: code-branch
+              pyqs:
+                - year: 2023
+                  file: abviiitm-dsa-2023.pdf
+                  id: abviiitm-dsa-2023
+                  pages: 10
+                  title: "Data Structures and Algorithms"

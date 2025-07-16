@@ -20,8 +20,20 @@ title: Home
   <div class="container">
     <h2 class="section-title">Browse by Colleges</h2>
     
+    <!-- Add sorting control -->
+    <!-- <div class="sort-controls" style="margin-bottom: 2rem; text-align: center;">
+      <button class="filter-btn" onclick="window.location.href='{{ '/' | relative_url }}'">Sort by Name</button>
+      <button class="filter-btn" onclick="window.location.href='{{ '/' | relative_url }}?sort=ranking'">Sort by Ranking</button>
+    </div> -->
+
     <div class="college-grid">
-      {% for college in site.data.colleges %}
+      {% assign colleges = site.data.colleges %}
+      {% if page.sort == 'ranking' %}
+        {% assign sorted_colleges = colleges | sort: 'ranking.overall' %}
+      {% else %}
+        {% assign sorted_colleges = colleges | sort: 'name' %}
+      {% endif %}
+      {% for college in sorted_colleges %}
         {% include college-card.html 
           slug=college.slug
           id=college.id 
@@ -92,4 +104,4 @@ title: Home
       {% endfor %}
     </div>
   </div>
-</section> -->
+</section>
