@@ -76,33 +76,61 @@
     </div>
   </header>
 
-  <!-- PDF Controls -->
-  <div class="pdf-controls">
-    <button id="prev-page" class="pdf-btn" disabled>
-      <i class="fas fa-chevron-left"></i> Previous
+  <!-- PDF Viewer Type Toggle -->
+  <div class="pdf-viewer-selector">
+    <button id="pdfjs-viewer-btn" class="viewer-btn active">
+      <i class="fas fa-file-pdf"></i> PDF.js Viewer
     </button>
-    <span id="page-info">Page <span id="current-page">1</span> of <span id="total-pages">--</span></span>
-    <button id="next-page" class="pdf-btn" disabled>
-      Next <i class="fas fa-chevron-right"></i>
+    <button id="google-viewer-btn" class="viewer-btn">
+      <i class="fab fa-google"></i> Google Docs Viewer
     </button>
-    <div class="pdf-zoom-controls">
-      <button id="zoom-out" class="pdf-btn">
-        <i class="fas fa-search-minus"></i>
+  </div>
+
+  <!-- PDF.js Viewer Container -->
+  <div id="pdfjs-viewer-container" class="pdf-viewer-option">
+    <!-- PDF Controls -->
+    <div class="pdf-controls">
+      <button id="prev-page" class="pdf-btn" disabled>
+        <i class="fas fa-chevron-left"></i> Previous
       </button>
-      <span id="zoom-level">100%</span>
-      <button id="zoom-in" class="pdf-btn">
-        <i class="fas fa-search-plus"></i>
+      <span id="page-info">Page <span id="current-page">1</span> of <span id="total-pages">--</span></span>
+      <button id="next-page" class="pdf-btn" disabled>
+        Next <i class="fas fa-chevron-right"></i>
       </button>
+      <div class="pdf-zoom-controls">
+        <button id="zoom-out" class="pdf-btn">
+          <i class="fas fa-search-minus"></i>
+        </button>
+        <span id="zoom-level">100%</span>
+        <button id="zoom-in" class="pdf-btn">
+          <i class="fas fa-search-plus"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- PDF Canvas Container -->
+    <div class="pdf-viewer-container" id="pdf-viewer-container">
+      <div class="pdf-loading" id="pdf-loading">
+        <div class="loading-spinner"></div>
+        <p>Loading PDF...</p>
+      </div>
+      <canvas id="pdf-canvas" class="pdf-canvas"></canvas>
     </div>
   </div>
 
-  <!-- PDF Canvas Container -->
-  <div class="pdf-viewer-container" id="pdf-viewer-container">
-    <div class="pdf-loading" id="pdf-loading">
-      <div class="loading-spinner"></div>
-      <p>Loading PDF...</p>
+  <!-- Google Docs Viewer Container -->
+  <div id="google-viewer-container" class="pdf-viewer-option" style="display: none;">
+    <div class="google-viewer-info">
+      <p><i class="fas fa-info-circle"></i> This viewer uses Google Docs to render the PDF. It works well on mobile devices and provides a consistent viewing experience.</p>
     </div>
-    <canvas id="pdf-canvas" class="pdf-canvas"></canvas>
+    <div class="google-viewer-wrapper">
+      <iframe class="pdf-iframe google-docs-iframe"
+              src="https://docs.google.com/gview?embedded=1&url=http://localhost:4000/pyqfort/assets/pdfs/ymca/computer-engineering/sem3/aec/ymca-aec-2023.pdf"
+              frameborder="0"
+              allowfullscreen>
+        <p>Your browser does not support iframes. <a href="http://localhost:4000/pyqfort/assets/pdfs/ymca/computer-engineering/sem3/aec/ymca-aec-2023.pdf">Download the PDF</a> instead.</p>
+      </iframe>
+    </div>
   </div>
 
   <!-- PDF Actions -->
@@ -113,10 +141,13 @@
     <a href="/pyqfort/assets/pdfs/ymca/computer-engineering/sem3/aec/ymca-aec-2023.pdf" class="btn-download" download>
       <i class="fas fa-download"></i> Download
     </a>
+    <button id="mobile-optimized-btn" class="btn-mobile-optimize">
+      <i class="fas fa-mobile-alt"></i> Mobile Optimized
+    </button>
   </div>
 </div>
 
-<!-- PDF.js Integration Script -->
+<!-- Enhanced PDF.js Integration Script -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   const pdfUrl = '/pyqfort/assets/pdfs/ymca/computer-engineering/sem3/aec/ymca-aec-2023.pdf';
@@ -124,35 +155,104 @@ document.addEventListener('DOMContentLoaded', function() {
   const pdfLoading = document.getElementById('pdf-loading');
   const pdfContainer = document.getElementById('pdf-viewer-container');
   
+  // Viewer switching elements
+  const pdfjsViewerBtn = document.getElementById('pdfjs-viewer-btn');
+  const googleViewerBtn = document.getElementById('google-viewer-btn');
+  const pdfjsContainer = document.getElementById('pdfjs-viewer-container');
+  const googleContainer = document.getElementById('google-viewer-container');
+  const mobileOptimizedBtn = document.getElementById('mobile-optimized-btn');
+  
   let pdfDoc = null;
   let currentPage = 1;
   let totalPages = 0;
   let scale = 1.0;
   let renderContext = null;
+  let currentViewer = 'pdfjs';
   
-  // Load PDF
-  pdfjsLib.getDocument(pdfUrl).promise.then(function(pdf) {
-    pdfDoc = pdf;
-    totalPages = pdf.numPages;
-    
-    // Update UI
-    document.getElementById('total-pages').textContent = totalPages;
-    document.getElementById('current-page').textContent = currentPage;
-    
-    // Hide loading, show canvas
-    pdfLoading.style.display = 'none';
-    pdfCanvas.style.display = 'block';
-    
-    // Enable navigation buttons
-    updateNavigationButtons();
-    
-    // Render first page
-    renderPage(currentPage);
-    
-  }).catch(function(error) {
-    console.error('Error loading PDF:', error);
-    pdfLoading.innerHTML = '<p>Error loading PDF. Please try downloading instead.</p>';
+  // Detect if user is on mobile
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
+  
+  // Auto-switch to Google Docs viewer on mobile if PDF.js fails
+  if (isMobile) {
+    mobileOptimizedBtn.style.display = 'inline-block';
+  }
+  
+  // Viewer switching functions
+  function switchToViewer(viewerType) {
+    if (viewerType === 'google') {
+      pdfjsContainer.style.display = 'none';
+      googleContainer.style.display = 'block';
+      pdfjsViewerBtn.classList.remove('active');
+      googleViewerBtn.classList.add('active');
+      currentViewer = 'google';
+    } else {
+      pdfjsContainer.style.display = 'block';
+      googleContainer.style.display = 'none';
+      pdfjsViewerBtn.classList.add('active');
+      googleViewerBtn.classList.remove('active');
+      currentViewer = 'pdfjs';
+      
+      // Initialize PDF.js if not already done
+      if (!pdfDoc) {
+        initializePDFJS();
+      }
+    }
+  }
+  
+  // Event listeners for viewer switching
+  pdfjsViewerBtn.addEventListener('click', () => switchToViewer('pdfjs'));
+  googleViewerBtn.addEventListener('click', () => switchToViewer('google'));
+  
+  // Mobile optimized button - switches to Google Docs viewer
+  mobileOptimizedBtn.addEventListener('click', () => {
+    switchToViewer('google');
   });
+  
+  // Initialize PDF.js viewer
+  function initializePDFJS() {
+    // Check if PDF.js is available
+    if (typeof pdfjsLib === 'undefined') {
+      console.warn('PDF.js not loaded, falling back to Google Docs viewer');
+      switchToViewer('google');
+      return;
+    }
+    
+    // Load PDF
+    pdfjsLib.getDocument(pdfUrl).promise.then(function(pdf) {
+      pdfDoc = pdf;
+      totalPages = pdf.numPages;
+      
+      // Update UI
+      document.getElementById('total-pages').textContent = totalPages;
+      document.getElementById('current-page').textContent = currentPage;
+      
+      // Hide loading, show canvas
+      pdfLoading.style.display = 'none';
+      pdfCanvas.style.display = 'block';
+      
+      // Enable navigation buttons
+      updateNavigationButtons();
+      
+      // Render first page
+      renderPage(currentPage);
+      
+    }).catch(function(error) {
+      console.error('Error loading PDF with PDF.js:', error);
+      
+      // Show error message and suggest Google Docs viewer
+      pdfLoading.innerHTML = `
+        <div class="pdf-error">
+          <p><i class="fas fa-exclamation-triangle"></i> Error loading PDF with PDF.js</p>
+          <p>Try the <button onclick="switchToViewer('google')" class="link-btn">Google Docs Viewer</button> or <a href="${pdfUrl}">download the file</a>.</p>
+        </div>
+      `;
+      
+      // Auto-switch to Google Docs viewer on mobile
+      if (isMobile) {
+        setTimeout(() => switchToViewer('google'), 2000);
+      }
+    });
+  }
   
   // Render page function
   function renderPage(pageNum) {
@@ -222,18 +322,20 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Fullscreen functionality
   document.getElementById('fullscreen-btn').addEventListener('click', function() {
-    if (pdfContainer.requestFullscreen) {
-      pdfContainer.requestFullscreen();
-    } else if (pdfContainer.mozRequestFullScreen) {
-      pdfContainer.mozRequestFullScreen();
-    } else if (pdfContainer.webkitRequestFullscreen) {
-      pdfContainer.webkitRequestFullscreen();
-    } else if (pdfContainer.msRequestFullscreen) {
-      pdfContainer.msRequestFullscreen();
+    const targetContainer = currentViewer === 'google' ? googleContainer : pdfContainer;
+    
+    if (targetContainer.requestFullscreen) {
+      targetContainer.requestFullscreen();
+    } else if (targetContainer.mozRequestFullScreen) {
+      targetContainer.mozRequestFullScreen();
+    } else if (targetContainer.webkitRequestFullscreen) {
+      targetContainer.webkitRequestFullscreen();
+    } else if (targetContainer.msRequestFullscreen) {
+      targetContainer.msRequestFullscreen();
     }
   });
   
-  // Touch gestures for mobile
+  // Touch gestures for mobile (PDF.js viewer only)
   if ('ontouchstart' in window) {
     let touchStartX = 0;
     let touchStartY = 0;
@@ -268,10 +370,22 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Responsive recalculation
   window.addEventListener('resize', function() {
-    if (pdfDoc) {
+    if (pdfDoc && currentViewer === 'pdfjs') {
       renderPage(currentPage);
     }
   });
+  
+  // Initialize the appropriate viewer
+  if (isMobile) {
+    // On mobile, start with Google Docs viewer for better compatibility
+    switchToViewer('google');
+  } else {
+    // On desktop, start with PDF.js viewer
+    initializePDFJS();
+  }
+  
+  // Make switchToViewer globally available
+  window.switchToViewer = switchToViewer;
 });
 </script>
 
