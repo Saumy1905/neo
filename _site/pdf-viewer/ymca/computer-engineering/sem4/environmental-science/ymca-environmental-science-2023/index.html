@@ -58,335 +58,203 @@
   <!-- Breadcrumbs -->
   <nav class="breadcrumbs">
     <a href="/pyqfort/">Home</a> &gt;
-    <a href="/pyqfort/colleges/"></a> &gt;
-    <a href="/pyqfort/colleges//"></a> &gt;
-    <a href="/pyqfort/colleges///"></a> &gt;
-    <a href="/pyqfort/colleges////"></a> &gt;
+    <a href="/pyqfort/colleges/ymca">JC Bose University</a> &gt;
+    <a href="/pyqfort/colleges/ymca/computer-engineering">Computer engineering</a> &gt;
+    <a href="/pyqfort/colleges/ymca/computer-engineering/sem4">Semester 4</a> &gt;
+    <a href="/pyqfort/colleges/ymca/computer-engineering/sem4/environmental-science">Environmental science</a> &gt;
     <span>Environmental Science</span>
   </nav>
+
 
   <!-- PDF Viewer Header -->
   <header class="pdf-viewer-header">
     <h1 class="pdf-title">Environmental Science (2023)</h1>
     <div class="pdf-meta">
-      <span></span>
-      <span></span>
-      <span></span>
+      <span>JC Bose University</span>
+      <span>Computer engineering</span>
+      <span>Semester 4</span>
       <span>3 pages</span>
     </div>
   </header>
 
-  <!-- PDF Viewer Type Toggle -->
-  <div class="pdf-viewer-selector">
-    <button id="pdfjs-viewer-btn" class="viewer-btn active">
-      <i class="fas fa-file-pdf"></i> PDF.js Viewer
-    </button>
-    <button id="google-viewer-btn" class="viewer-btn">
-      <i class="fab fa-google"></i> Google Docs Viewer
-    </button>
-  </div>
-
-  <!-- PDF.js Viewer Container -->
-  <div id="pdfjs-viewer-container" class="pdf-viewer-option">
-    <!-- PDF Controls -->
-    <div class="pdf-controls">
-      <button id="prev-page" class="pdf-btn" disabled>
-        <i class="fas fa-chevron-left"></i> Previous
+  <!-- Viewer Options -->
+  <div class="viewer-options">
+    <div class="viewer-tabs">
+      <button class="viewer-tab active" data-viewer="iframe" onclick="switchViewer('iframe')">
+        <i class="fas fa-browser"></i>
+        <span>Default Viewer</span>
       </button>
-      <span id="page-info">Page <span id="current-page">1</span> of <span id="total-pages">--</span></span>
-      <button id="next-page" class="pdf-btn" disabled>
-        Next <i class="fas fa-chevron-right"></i>
+      <button class="viewer-tab" data-viewer="pdfjs" onclick="switchViewer('pdfjs')">
+        <i class="fas fa-file-pdf"></i>
+        <span>PDF.js Viewer</span>
       </button>
-      <div class="pdf-zoom-controls">
-        <button id="zoom-out" class="pdf-btn">
-          <i class="fas fa-search-minus"></i>
-        </button>
-        <span id="zoom-level">100%</span>
-        <button id="zoom-in" class="pdf-btn">
-          <i class="fas fa-search-plus"></i>
-        </button>
-      </div>
     </div>
-
-    <!-- PDF Canvas Container -->
-    <div class="pdf-viewer-container" id="pdf-viewer-container">
-      <div class="pdf-loading" id="pdf-loading">
-        <div class="loading-spinner"></div>
-        <p>Loading PDF...</p>
-      </div>
-      <canvas id="pdf-canvas" class="pdf-canvas"></canvas>
+    
+    <div class="viewer-info">
+      <span class="viewer-description" id="viewer-description">
+        <i class="fas fa-info-circle"></i>
+        Default browser PDF viewer with standard controls
+      </span>
     </div>
   </div>
 
-  <!-- Google Docs Viewer Container -->
-  <div id="google-viewer-container" class="pdf-viewer-option" style="display: none;">
-    <div class="google-viewer-info">
-      <p><i class="fas fa-info-circle"></i> This viewer uses Google Docs to render the PDF. It works well on mobile devices and provides a consistent viewing experience.</p>
-    </div>
-    <div class="google-viewer-wrapper">
-      <iframe class="pdf-iframe google-docs-iframe"
-              src="https://docs.google.com/gview?embedded=1&url=http://localhost:4000/pyqfort/assets/pdfs/ymca/computer-engineering/sem4/environmental-science/ymca-environmental-science-2023.pdf"
-              frameborder="0"
-              allowfullscreen>
-        <p>Your browser does not support iframes. <a href="http://localhost:4000/pyqfort/assets/pdfs/ymca/computer-engineering/sem4/environmental-science/ymca-environmental-science-2023.pdf">Download the PDF</a> instead.</p>
-      </iframe>
-    </div>
-  </div>
-
-  <!-- PDF Actions -->
+  <!-- PDF Actions Bar -->
   <div class="pdf-actions-bar">
-    <button id="fullscreen-btn" class="btn-fullscreen">
-      <i class="fas fa-expand"></i> Fullscreen
-    </button>
-    <a href="/pyqfort/assets/pdfs/ymca/computer-engineering/sem4/environmental-science/ymca-environmental-science-2023.pdf" class="btn-download" download>
-      <i class="fas fa-download"></i> Download
-    </a>
-    <button id="mobile-optimized-btn" class="btn-mobile-optimize">
-      <i class="fas fa-mobile-alt"></i> Mobile Optimized
-    </button>
+    <div class="action-group">
+      <button id="fullscreen-btn" class="btn-action" title="Fullscreen">
+        <i class="fas fa-expand"></i>
+        <span>Fullscreen</span>
+      </button>
+      <button id="print-btn" class="btn-action" title="Print">
+        <i class="fas fa-print"></i>
+        <span>Print</span>
+      </button>
+    </div>
+    
+    <div class="action-group">
+      <a href="/pyqfort/assets/pdfs/ymca/computer-engineering/sem4/environmental-science/ymca-environmental-science-2023.pdf" class="btn-action btn-download" title="Download PDF" download>
+        <i class="fas fa-download"></i>
+        <span>Download</span>
+      </a>
+      <a href="/pyqfort/assets/pdfs/ymca/computer-engineering/sem4/environmental-science/ymca-environmental-science-2023.pdf" class="btn-action btn-external" title="Open in new tab" target="_blank">
+        <i class="fas fa-external-link-alt"></i>
+        <span>Open in New Tab</span>
+      </a>
+    </div>
   </div>
+
+  <!-- PDF Viewer Container -->
+  <div class="pdf-viewer-container">
+    <!-- Default Iframe Viewer -->
+    <div class="viewer-content active" id="iframe-viewer">
+      <div class="iframe-container">
+        <iframe 
+          src="/pyqfort/assets/pdfs/ymca/computer-engineering/sem4/environmental-science/ymca-environmental-science-2023.pdf#toolbar=1" 
+          class="pdf-iframe" 
+          id="pdf-iframe" 
+          title="PDF Viewer for Environmental Science"
+          loading="lazy">
+        </iframe>
+        <div class="iframe-fallback">
+          <div class="fallback-content">
+            <i class="fas fa-exclamation-triangle"></i>
+            <h3>PDF Viewer Not Supported</h3>
+            <p>Your browser doesn't support inline PDF viewing.</p>
+            <div class="fallback-actions">
+              <a href="/pyqfort/assets/pdfs/ymca/computer-engineering/sem4/environmental-science/ymca-environmental-science-2023.pdf" class="btn btn-primary" download>
+                <i class="fas fa-download"></i> Download PDF
+              </a>
+              <button class="btn btn-secondary" onclick="switchViewer('pdfjs')">
+                <i class="fas fa-file-pdf"></i> Try PDF.js Viewer
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PDF.js Viewer -->
+    <div class="viewer-content" id="pdfjs-viewer">
+      <div class="pdfjs-container">
+        <div class="pdfjs-toolbar">
+          <div class="toolbar-left">
+            <button class="toolbar-btn" id="prev-page" title="Previous Page">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <span class="page-info">
+              <input type="number" id="page-num" value="1" min="1">
+              <span>of</span>
+              <span id="page-count">-</span>
+            </span>
+            <button class="toolbar-btn" id="next-page" title="Next Page">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+          
+          <div class="toolbar-center">
+            <button class="toolbar-btn" id="zoom-out" title="Zoom Out">
+              <i class="fas fa-search-minus"></i>
+            </button>
+            <select id="zoom-select">
+              <option value="auto">Auto</option>
+              <option value="page-actual">Actual Size</option>
+              <option value="page-fit">Fit Page</option>
+              <option value="page-width">Fit Width</option>
+              <option value="0.5">50%</option>
+              <option value="0.75">75%</option>
+              <option value="1">100%</option>
+              <option value="1.25">125%</option>
+              <option value="1.5">150%</option>
+              <option value="2">200%</option>
+            </select>
+            <button class="toolbar-btn" id="zoom-in" title="Zoom In">
+              <i class="fas fa-search-plus"></i>
+            </button>
+          </div>
+          
+          <div class="toolbar-right">
+            <button class="toolbar-btn" id="rotate-left" title="Rotate Left">
+              <i class="fas fa-undo"></i>
+            </button>
+            <button class="toolbar-btn" id="rotate-right" title="Rotate Right">
+              <i class="fas fa-redo"></i>
+            </button>
+          </div>
+        </div>
+        
+        <div class="pdfjs-content">
+          <canvas id="pdf-canvas"></canvas>
+          <div class="pdfjs-loading">
+            <div class="loading-spinner"></div>
+            <p>Loading PDF...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div class="pdf-loading" id="pdf-loading">
+    <div class="loading-content">
+      <div class="loading-spinner"></div>
+      <p>Loading PDF viewer...</p>
+    </div>
+  </div>
+
+  <!-- Error State -->
+  <div class="pdf-error" id="pdf-error" style="display: none;">
+    <div class="error-content">
+      <i class="fas fa-exclamation-triangle"></i>
+      <h3>Error Loading PDF</h3>
+      <p>There was an error loading the PDF file.</p>
+      <div class="error-actions">
+        <button class="btn btn-primary" onclick="location.reload()">
+          <i class="fas fa-refresh"></i> Retry
+        </button>
+        <a href="/pyqfort/assets/pdfs/ymca/computer-engineering/sem4/environmental-science/ymca-environmental-science-2023.pdf" class="btn btn-secondary" download>
+          <i class="fas fa-download"></i> Download Instead
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="pdf-navigation">
+    
+    
+    
+    
+    
+    
+    
+  </nav>
 </div>
 
-<!-- Enhanced PDF.js Integration Script -->
+<!-- PDF.js Library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  const pdfUrl = '/pyqfort/assets/pdfs/ymca/computer-engineering/sem4/environmental-science/ymca-environmental-science-2023.pdf';
-  const pdfCanvas = document.getElementById('pdf-canvas');
-  const pdfLoading = document.getElementById('pdf-loading');
-  const pdfContainer = document.getElementById('pdf-viewer-container');
-  
-  // Viewer switching elements
-  const pdfjsViewerBtn = document.getElementById('pdfjs-viewer-btn');
-  const googleViewerBtn = document.getElementById('google-viewer-btn');
-  const pdfjsContainer = document.getElementById('pdfjs-viewer-container');
-  const googleContainer = document.getElementById('google-viewer-container');
-  const mobileOptimizedBtn = document.getElementById('mobile-optimized-btn');
-  
-  let pdfDoc = null;
-  let currentPage = 1;
-  let totalPages = 0;
-  let scale = 1.0;
-  let renderContext = null;
-  let currentViewer = 'pdfjs';
-  
-  // Detect if user is on mobile
-  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
-  
-  // Auto-switch to Google Docs viewer on mobile if PDF.js fails
-  if (isMobile) {
-    mobileOptimizedBtn.style.display = 'inline-block';
-  }
-  
-  // Viewer switching functions
-  function switchToViewer(viewerType) {
-    if (viewerType === 'google') {
-      pdfjsContainer.style.display = 'none';
-      googleContainer.style.display = 'block';
-      pdfjsViewerBtn.classList.remove('active');
-      googleViewerBtn.classList.add('active');
-      currentViewer = 'google';
-    } else {
-      pdfjsContainer.style.display = 'block';
-      googleContainer.style.display = 'none';
-      pdfjsViewerBtn.classList.add('active');
-      googleViewerBtn.classList.remove('active');
-      currentViewer = 'pdfjs';
-      
-      // Initialize PDF.js if not already done
-      if (!pdfDoc) {
-        initializePDFJS();
-      }
-    }
-  }
-  
-  // Event listeners for viewer switching
-  pdfjsViewerBtn.addEventListener('click', () => switchToViewer('pdfjs'));
-  googleViewerBtn.addEventListener('click', () => switchToViewer('google'));
-  
-  // Mobile optimized button - switches to Google Docs viewer
-  mobileOptimizedBtn.addEventListener('click', () => {
-    switchToViewer('google');
-  });
-  
-  // Initialize PDF.js viewer
-  function initializePDFJS() {
-    // Check if PDF.js is available
-    if (typeof pdfjsLib === 'undefined') {
-      console.warn('PDF.js not loaded, falling back to Google Docs viewer');
-      switchToViewer('google');
-      return;
-    }
-    
-    // Load PDF
-    pdfjsLib.getDocument(pdfUrl).promise.then(function(pdf) {
-      pdfDoc = pdf;
-      totalPages = pdf.numPages;
-      
-      // Update UI
-      document.getElementById('total-pages').textContent = totalPages;
-      document.getElementById('current-page').textContent = currentPage;
-      
-      // Hide loading, show canvas
-      pdfLoading.style.display = 'none';
-      pdfCanvas.style.display = 'block';
-      
-      // Enable navigation buttons
-      updateNavigationButtons();
-      
-      // Render first page
-      renderPage(currentPage);
-      
-    }).catch(function(error) {
-      console.error('Error loading PDF with PDF.js:', error);
-      
-      // Show error message and suggest Google Docs viewer
-      pdfLoading.innerHTML = `
-        <div class="pdf-error">
-          <p><i class="fas fa-exclamation-triangle"></i> Error loading PDF with PDF.js</p>
-          <p>Try the <button onclick="switchToViewer('google')" class="link-btn">Google Docs Viewer</button> or <a href="${pdfUrl}">download the file</a>.</p>
-        </div>
-      `;
-      
-      // Auto-switch to Google Docs viewer on mobile
-      if (isMobile) {
-        setTimeout(() => switchToViewer('google'), 2000);
-      }
-    });
-  }
-  
-  // Render page function
-  function renderPage(pageNum) {
-    if (!pdfDoc) return;
-    
-    pdfDoc.getPage(pageNum).then(function(page) {
-      // Calculate scale for mobile responsiveness
-      const containerWidth = pdfContainer.clientWidth;
-      const viewport = page.getViewport({ scale: 1.0 });
-      const mobileScale = Math.min(containerWidth / viewport.width, 1.2);
-      scale = window.innerWidth < 768 ? mobileScale : 1.0;
-      
-      const scaledViewport = page.getViewport({ scale: scale });
-      
-      // Set canvas dimensions
-      pdfCanvas.width = scaledViewport.width;
-      pdfCanvas.height = scaledViewport.height;
-      
-      // Render page
-      const renderContext = {
-        canvasContext: pdfCanvas.getContext('2d'),
-        viewport: scaledViewport
-      };
-      
-      page.render(renderContext);
-      
-      // Update page info
-      document.getElementById('current-page').textContent = pageNum;
-      document.getElementById('zoom-level').textContent = Math.round(scale * 100) + '%';
-    });
-  }
-  
-  // Navigation functions
-  function updateNavigationButtons() {
-    document.getElementById('prev-page').disabled = currentPage <= 1;
-    document.getElementById('next-page').disabled = currentPage >= totalPages;
-  }
-  
-  // Event listeners
-  document.getElementById('prev-page').addEventListener('click', function() {
-    if (currentPage > 1) {
-      currentPage--;
-      renderPage(currentPage);
-      updateNavigationButtons();
-    }
-  });
-  
-  document.getElementById('next-page').addEventListener('click', function() {
-    if (currentPage < totalPages) {
-      currentPage++;
-      renderPage(currentPage);
-      updateNavigationButtons();
-    }
-  });
-  
-  document.getElementById('zoom-in').addEventListener('click', function() {
-    scale *= 1.2;
-    renderPage(currentPage);
-    document.getElementById('zoom-level').textContent = Math.round(scale * 100) + '%';
-  });
-  
-  document.getElementById('zoom-out').addEventListener('click', function() {
-    scale /= 1.2;
-    renderPage(currentPage);
-    document.getElementById('zoom-level').textContent = Math.round(scale * 100) + '%';
-  });
-  
-  // Fullscreen functionality
-  document.getElementById('fullscreen-btn').addEventListener('click', function() {
-    const targetContainer = currentViewer === 'google' ? googleContainer : pdfContainer;
-    
-    if (targetContainer.requestFullscreen) {
-      targetContainer.requestFullscreen();
-    } else if (targetContainer.mozRequestFullScreen) {
-      targetContainer.mozRequestFullScreen();
-    } else if (targetContainer.webkitRequestFullscreen) {
-      targetContainer.webkitRequestFullscreen();
-    } else if (targetContainer.msRequestFullscreen) {
-      targetContainer.msRequestFullscreen();
-    }
-  });
-  
-  // Touch gestures for mobile (PDF.js viewer only)
-  if ('ontouchstart' in window) {
-    let touchStartX = 0;
-    let touchStartY = 0;
-    
-    pdfCanvas.addEventListener('touchstart', function(e) {
-      touchStartX = e.touches[0].clientX;
-      touchStartY = e.touches[0].clientY;
-    });
-    
-    pdfCanvas.addEventListener('touchend', function(e) {
-      const touchEndX = e.changedTouches[0].clientX;
-      const touchEndY = e.changedTouches[0].clientY;
-      const deltaX = touchEndX - touchStartX;
-      const deltaY = touchEndY - touchStartY;
-      
-      // Horizontal swipe detection
-      if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
-        if (deltaX > 0 && currentPage > 1) {
-          // Swipe right - previous page
-          currentPage--;
-          renderPage(currentPage);
-          updateNavigationButtons();
-        } else if (deltaX < 0 && currentPage < totalPages) {
-          // Swipe left - next page
-          currentPage++;
-          renderPage(currentPage);
-          updateNavigationButtons();
-        }
-      }
-    });
-  }
-  
-  // Responsive recalculation
-  window.addEventListener('resize', function() {
-    if (pdfDoc && currentViewer === 'pdfjs') {
-      renderPage(currentPage);
-    }
-  });
-  
-  // Initialize the appropriate viewer
-  if (isMobile) {
-    // On mobile, start with Google Docs viewer for better compatibility
-    switchToViewer('google');
-  } else {
-    // On desktop, start with PDF.js viewer
-    initializePDFJS();
-  }
-  
-  // Make switchToViewer globally available
-  window.switchToViewer = switchToViewer;
-});
+  // Configure PDF.js worker
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 </script>
 
   </main>
