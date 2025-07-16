@@ -176,26 +176,26 @@ function switchViewer(viewerType) {
   }
 }
 
-function setupViewerSwitching() {
-  // REMOVED: Auto-switch to PDF.js on mobile devices
-  // Keep iframe as default for all devices
+// function setupViewerSwitching() {
+//   // REMOVED: Auto-switch to PDF.js on mobile devices
+//   // Keep iframe as default for all devices
   
-  // Add helpful message for mobile users
-  if (window.innerWidth <= 768) {
-    const viewerInfo = document.querySelector('.viewer-info');
-    if (viewerInfo) {
-      const mobileHint = document.createElement('div');
-      mobileHint.className = 'mobile-hint';
-      mobileHint.innerHTML = `
-        <div class="mobile-hint-content">
-          <i class="fas fa-mobile-alt"></i>
-          <span>On mobile? If the PDF doesn't display, try the <strong>PDF.js Viewer</strong> for better mobile compatibility.</span>
-        </div>
-      `;
-      viewerInfo.appendChild(mobileHint);
-    }
-  }
-}
+//   // Add helpful message for mobile users
+//   if (window.innerWidth <= 768) {
+//     const viewerInfo = document.querySelector('.viewer-info');
+//     if (viewerInfo) {
+//       const mobileHint = document.createElement('div');
+//       mobileHint.className = 'mobile-hint';
+//       mobileHint.innerHTML = `
+//         <div class="mobile-hint-content">
+//           <i class="fas fa-mobile-alt"></i>
+//           <span>On mobile? If the PDF doesn't display, try the <strong>PDF.js Viewer</strong> for better mobile compatibility.</span>
+//         </div>
+//       `;
+//       viewerInfo.appendChild(mobileHint);
+//     }
+//   }
+// }
 
 function showIframeFallback() {
   const fallback = document.querySelector('.iframe-fallback');
