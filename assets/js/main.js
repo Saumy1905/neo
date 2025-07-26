@@ -103,7 +103,7 @@ let pdfDoc = null;
 let pageNum = 1;
 let pageIsRendering = false;
 let pageNumIsPending = null;
-let scale = 5.0; // Set to 500% by default
+let scale = 5.0; // Set to 500% by default for PDF.js
 let rotation = 0;
 
 // PDF Viewer initialization
@@ -535,14 +535,14 @@ function initializeEnhancedSearch() {
   }
 }
 
-// SOLUTION 3: Use pre-loaded global data from college-data.js
+// Use pre-loaded global data from college-data.js
 function loadPYQData() {
   allPYQs = [];
   
   try {
     // Use the globally available data from window.COLLEGE_DATA
     const collegeData = window.COLLEGE_DATA;
-    // Get the baseurl passed from Jekyll, or default to an empty string
+    // Get the baseurl from a global variable or default to empty string
     const baseUrl = '';
     
     if (!collegeData || !collegeData.colleges) {
@@ -564,22 +564,28 @@ function loadPYQData() {
             if (!subject.pyqs || !Array.isArray(subject.pyqs)) return;
             
             subject.pyqs.forEach(pyq => {
+              // Ensure slugs are properly defined
+              const collegeSlug = escapeJavaScript(college.slug || college.id || '');
+              const branchSlug = escapeJavaScript(branch.slug || branch.id || '');
+              const semesterSlug = escapeJavaScript(semester.slug || semester.id || '');
+              const subjectSlug = escapeJavaScript(subject.slug || subject.id || '');
+              
               // Process each PYQ and add to searchable array
               allPYQs.push({
                 title: escapeJavaScript(subject.name || ''),
                 college: escapeJavaScript(college.name || ''),
                 collegeId: escapeJavaScript(college.id || ''),
-                collegeSlug: escapeJavaScript(college.slug || ''),
+                collegeSlug: collegeSlug,
                 branch: escapeJavaScript(branch.name || ''),
                 branchId: escapeJavaScript(branch.id || ''),
-                branchSlug: escapeJavaScript(branch.slug || ''),
+                branchSlug: branchSlug,
                 branchIcon: escapeJavaScript(branch.icon || 'book'),
                 semester: semester.number || '',
                 semesterId: escapeJavaScript(semester.id || ''),
-                semesterSlug: escapeJavaScript(semester.slug || ''),
+                semesterSlug: semesterSlug,
                 subject: escapeJavaScript(subject.name || ''),
                 subjectId: escapeJavaScript(subject.id || ''),
-                subjectSlug: escapeJavaScript(subject.slug || ''),
+                subjectSlug: subjectSlug,
                 subjectDescription: escapeJavaScript(subject.description || ''),
                 subjectIcon: escapeJavaScript(subject.icon || 'book'),
                 year: parseInt(pyq.year) || 0,
@@ -589,9 +595,9 @@ function loadPYQData() {
                 pyqTitle: escapeJavaScript(pyq.title || ''),
                 difficulty: escapeJavaScript(pyq.difficulty || ''),
                 examType: escapeJavaScript(pyq.exam_type || ''),
-                // Build URLs for navigation
-                url: `/colleges/${college.slug}/${branch.slug}/${semester.slug}/${subject.slug}/`,
-                pdfUrl: `/pdf-viewer/${college.slug}/${branch.slug}/${semester.slug}/${subject.slug}/${pyq.id}/`,
+                // Build URLs for navigation with trailing slash
+                url: `/colleges/${collegeSlug}/${branchSlug}/${semesterSlug}/${subjectSlug}/`,
+                pdfUrl: `/pdf-viewer/${collegeSlug}/${branchSlug}/${semesterSlug}/${subjectSlug}/${pyq.id}/`,
                 downloadUrl: `/assets/pdfs/${pyq.file}`
               });
             });
@@ -605,6 +611,8 @@ function loadPYQData() {
     // Log some sample data for debugging
     if (allPYQs.length > 0) {
       console.log('📄 Sample PYQ data:', allPYQs[0]);
+      console.log('🌐 Generated subject URL:', allPYQs[0].url);
+      // console.log('🌐 Base URL:', baseUrl);
     }
     
   } catch (error) {
@@ -694,7 +702,7 @@ function sortSearchResults(sortBy) {
         case 'branch':
           return (a.branch || '').localeCompare(b.branch || '');
         case 'semester':
-          return (a.semester || 0) - (b.semester || 0);
+          return (a.semester || 0) - (a.semester || 0);
         case 'relevance':
         default:
           return 0; // Keep original order for relevance
@@ -1157,4 +1165,5 @@ window.debugPYQData = function() {
   console.log('📱 Current PDF viewer:', currentViewer);
   console.log('📄 PDF document loaded:', pdfDoc ? 'Yes' : 'No');
   console.log('🔍 Current zoom scale:', scale);
+  console.log('🌐 Sample URLs:', allPYQs.slice(0, 5).map(p => ({ subject: p.subject, url: p.url })));
 };

@@ -3,20 +3,7 @@
   id: ymca # This must match exactly with page.name
   description: Explore branches and Previous Year Question Papers
   keywords: ["jc bose", "university", "ymca", "engineering"]
-  # New ranking fields
-  ranking:
-    overall: 1
-    established: 1969
-    location: "Faridabad, Haryana"
-    nirf_rank: 101
-    category: "Government"
-    total_students: 8000
-    accreditation: "NAAC A+"
-  stats:
-    total_pyqs: 0  # Need to be calculated dynamically
-    total_branches: 0  # Need to be calculated dynamically
-    total_semesters: 0  # Need to be calculated dynamically
-    latest_year: 2024
+  latest_year: 2024
   branches:
     - name: computer-engineering
       slug: computer-engineering
@@ -451,20 +438,6 @@
   slug: abviiitm-gwalior
   id: abviiitm-gwalior
   description: Explore branches and Previous Year Question Papers
-  # New ranking fields
-  ranking:
-    overall: 6
-    established: 1997
-    location: "Gwalior, Madhya Pradesh"
-    nirf_rank: 30
-    category: "Government"
-    total_students: 7000
-    accreditation: "NAAC A"
-  stats:
-    total_pyqs: 0  # Need to be calculated dynamically
-    total_branches: 0  # Need to be calculated dynamically
-    total_semesters: 0  # Need to be calculated dynamically
-    latest_year: 2023
   branches:
     - name: computer-science-and-engineering
       slug: computer-science-and-engineering
