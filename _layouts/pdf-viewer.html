@@ -58,7 +58,7 @@ layout: default
       </button>
     </div>
     
-    <div class="action-group">
+        <div class="action-group">
       <a href="{{ page.file | relative_url }}" class="btn-action btn-download" title="Download PDF" download>
         <i class="fas fa-download"></i>
         <span>Download</span>
@@ -67,6 +67,14 @@ layout: default
         <i class="fas fa-external-link-alt"></i>
         <span>Open in New Tab</span>
       </a>
+      {% if page.listen_file %}
+      <a href="{{ page.listen_file }}" class="btn-action btn-listen"
+        title="Listen to Discussion/Audio"
+        target="_blank" rel="noopener">
+        <i class="fas fa-headphones"></i>
+        <span>Listen</span>
+      </a>
+      {% endif %}
     </div>
   </div>
 

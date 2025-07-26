@@ -2075,3 +2075,17 @@ h1, h2, h3, h4, h5, h6 {
   background: var(--info-bg, #1e3a8a);
   color: var(--info-color, #bfdbfe);
 }
+
+.btn-listen {
+  background: #17a2b8;
+  color: #fff;
+  border-color: #138496;
+}
+.btn-listen:hover, .btn-listen:focus {
+  background: #138496;
+  color: #fff;
+  border-color: #117a8b;
+}
+.btn-listen i {
+  color: #fff; /* ensure visibility of icon */
+}
