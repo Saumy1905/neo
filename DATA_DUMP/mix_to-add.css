@@ -1,0 +1,87 @@
+/* Search results */
+.search-page {
+  background: var(--background-color); /* Fix: Use variable instead of hard-coded white */
+}
+
+.search-form-section {
+  background: var(--background-color); /* Fix: Use variable for dark mode */
+  padding: 3rem 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.search-help {
+  color: var(--text-color); /* Fix: Use text-color for visibility in dark mode */
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  display: block;
+}
+
+.filters-header h3 {
+  color: var(--text-color); /* Fix: Ensure header uses text-color */
+}
+
+.filters-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: 1px solid var(--border-color);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: var(--text-color); /* Fix: Ensure toggle button text is visible */
+}
+
+.filters-toggle:hover {
+  background: var(--light-gray);
+  border-color: var(--primary-color);
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.filter-group label {
+  color: var(--text-color); /* Fix: Ensure labels are visible in dark mode */
+}
+
+.filter-group select {
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background: var(--background-color);
+  color: var(--text-color);
+}
+
+.search-results-section {
+  padding: 3rem 0;
+}
+
+.search-status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-color); /* Fix: Ensure status text is visible */
+}
+
+.results-count,
+.search-time {
+  color: var(--text-color); /* Fix: Ensure results count and time are visible */
+}
+
+.filters-label {
+  color: var(--text-color); /* Fix: Ensure "Active filters:" is visible */
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: 1rem;
+  line-height: 1.3;
+  color: var(--text-color); /* Ensure headers use text-color for dark mode */
+}
