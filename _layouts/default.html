@@ -32,23 +32,33 @@
       
       <div class="header-right">
         <a href="https://tally.so/r/wz6BKa" target="_blank" rel="noopener noreferrer" class="add-pyq-button" aria-label="Add PYQs" style="margin-top: 1.7px; display: inline-block;">
-          <i class="fa-solid fa-plus glow-icon"></i>
+          <i class="fa-solid fa-plus pulsing-plus"></i>
         </a>
         <style>
-          .glow-icon {
+          .pulsing-plus {
             color: #5d7bf9;
             font-size: 1.33em;
-            text-shadow: 0 0 10px rgba(93, 123, 249, 0.7), 0 0 20px rgba(93, 123, 249, 0.5);
-            animation: glow-effect 6s ease-in-out infinite alternate;
             filter: drop-shadow(0 0 2px rgba(93, 123, 249, 0.3));
+            animation: plus-pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+            transition: all 0.3s ease;
           }
           
-          @keyframes glow-effect {
-            from {
-              text-shadow: 0 0 5px rgba(93, 123, 249, 0.7), 0 0 10px rgba(93, 123, 249, 0.5);
+          @keyframes plus-pulse {
+            0%, 100% {
+              transform: scale(1);
+              filter: drop-shadow(0 0 2px rgba(93, 123, 249, 0.3));
             }
-            to {
-              text-shadow: 0 0 10px rgba(93, 123, 249, 0.9), 0 0 20px rgba(93, 123, 249, 0.7), 0 0 30px rgba(93, 123, 249, 0.5);
+            25% {
+              transform: scale(1.08);
+              filter: drop-shadow(0 0 4px rgba(93, 123, 249, 0.5));
+            }
+            50% {
+              transform: scale(1);
+              filter: drop-shadow(0 0 2px rgba(93, 123, 249, 0.3));
+            }
+            75% {
+              transform: scale(1.08);
+              filter: drop-shadow(0 0 4px rgba(93, 123, 249, 0.5));
             }
           }
         </style>
