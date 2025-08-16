@@ -30,6 +30,7 @@
                   exam_type: "semester"
                   pages: 3
                   title: "Applied Electronic Circuit 2024"
+                  new: true  # Mark as new
                 - year: 2023
                   file: ymca-aec-2023.pdf
                   id: ymca-aec-2023  # Add this unique identifier

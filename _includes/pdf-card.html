@@ -1,6 +1,27 @@
+<style>
+  .pdf-icon {
+    position: relative;
+  }
+  .tag-new {
+    position: absolute;
+    top: 0px;
+    right: -10px;
+    background-color: #ff4757;
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 3px 6px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+</style>
+
 <div class="pdf-card">
   <div class="pdf-icon">
     <i class="fas fa-file-pdf"></i>
+    {% if include.new %}
+    <span class="tag-new">NEW</span>
+    {% endif %}
   </div>
   <div class="pdf-content">
     <h3 class="pdf-title">{{ include.title }}</h3>
