@@ -1,0 +1,250 @@
+---
+layout: default
+---
+<div class="container">
+  <!-- Breadcrumbs -->
+  <nav class="breadcrumbs">
+    <a href="{{ '/' | relative_url }}">Home</a> &gt;
+    <a href="{{ '/colleges/' | append: page.college | relative_url }}">{{ page.college | replace: 'ymca', 'JC Bose University' | replace: 'vit-bhopal', 'VIT Bhopal University' }}</a> &gt;
+    <a href="{{ '/colleges/' | append: page.college | append: '/' | append: page.branch | relative_url }}">{{ page.branch | replace: '-', ' ' | capitalize }}</a> &gt;
+    <a href="{{ '/colleges/' | append: page.college | append: '/' | append: page.branch | append: '/' | append: page.semester | relative_url }}">{{ page.semester | replace: 'sem', 'Semester ' }}</a> &gt;
+    <a href="{{ '/colleges/' | append: page.college | append: '/' | append: page.branch | append: '/' | append: page.semester | append: '/' | append: page.subject | relative_url }}">{{ page.subject | replace: '-', ' ' | capitalize }}</a> &gt;
+    <span>{{ page.title }}</span>
+  </nav>
+
+
+  <!-- PDF Viewer Header -->
+  <header class="pdf-viewer-header">
+    <h1 class="pdf-title">{{ page.title }} ({{ page.year }})</h1>
+    <div class="pdf-meta">
+      <span>{{ page.college | replace: 'ymca', 'JC Bose University' | replace: 'vit-bhopal', 'VIT Bhopal University' }}</span>
+      <span>{{ page.branch | replace: '-', ' ' | capitalize }}</span>
+      <span>{{ page.semester | replace: 'sem', 'Semester ' }}</span>
+      <!-- <span>{{ page.pages | default: 'N/A' }} pages</span> -->
+    </div>
+  </header>
+
+  <!-- Viewer Options -->
+  <div class="viewer-options">
+    <div class="viewer-tabs">
+      <button class="viewer-tab active" data-viewer="iframe" onclick="switchViewer('iframe')">
+        <i class="fas fa-browser"></i>
+        <span>Default Viewer</span>
+      </button>
+      <button class="viewer-tab" data-viewer="pdfjs" onclick="switchViewer('pdfjs')">
+        <i class="fas fa-file-pdf"></i>
+        <span>PDF.js Viewer</span>
+      </button>
+    </div>
+    
+    <div class="viewer-info">
+      <span class="viewer-description" id="viewer-description">
+        <i class="fas fa-info-circle"></i>
+        Default browser PDF viewer with standard controls
+      </span>
+    </div>
+  </div>
+
+  <!-- PDF Actions Bar -->
+  <div class="pdf-actions-bar">
+    <div class="action-group">
+      <button id="fullscreen-btn" class="btn-action" title="Fullscreen">
+        <i class="fas fa-expand"></i>
+        <span>Fullscreen</span>
+      </button>
+      <button id="print-btn" class="btn-action" title="Print">
+        <i class="fas fa-print"></i>
+        <span>Print</span>
+      </button>
+    </div>
+    
+    <div class="action-group">
+      <a href="{{ page.file | relative_url }}" class="btn-action btn-download" title="Download PDF" download>
+        <i class="fas fa-download"></i>
+        <span>Download</span>
+      </a>
+      <a href="{{ page.file | relative_url }}" class="btn-action btn-external" title="Open in new tab" target="_blank">
+        <i class="fas fa-external-link-alt"></i>
+        <span>Open in New Tab</span>
+      </a>
+      {% if page.listen_file %}
+      <a href="{{ page.listen_file }}" class="btn-action btn-listen"
+        title="Listen to Discussion/Audio"
+        target="_blank" rel="noopener">
+        <i class="fas fa-headphones"></i>
+        <span>PraxPod</span>
+      </a>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- PDF Viewer Container -->
+  <div class="pdf-viewer-container">
+    <!-- Default Iframe Viewer -->
+    <div class="viewer-content active" id="iframe-viewer">
+      <div class="iframe-container">
+        <iframe 
+          src="{{ page.file | relative_url }}#toolbar=1" 
+          class="pdf-iframe" 
+          id="pdf-iframe" 
+          title="PDF Viewer for {{ page.title }}"
+          loading="lazy">
+        </iframe>
+        <div class="iframe-fallback">
+          <div class="fallback-content">
+            <i class="fas fa-exclamation-triangle"></i>
+            <h3>PDF Viewer Not Supported</h3>
+            <p>Your browser doesn't support inline PDF viewing.</p>
+            <div class="fallback-actions">
+              <a href="{{ page.file | relative_url }}" class="btn btn-primary" download>
+                <i class="fas fa-download"></i> Download PDF
+              </a>
+              <button class="btn btn-secondary" onclick="switchViewer('pdfjs')">
+                <i class="fas fa-file-pdf"></i> Try PDF.js Viewer
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PDF.js Viewer -->
+    <div class="viewer-content" id="pdfjs-viewer">
+      <div class="pdfjs-container">
+        <div class="pdfjs-toolbar">
+          <div class="toolbar-left">
+            <button class="toolbar-btn" id="prev-page" title="Previous Page">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <span class="page-info">
+              <input type="number" id="page-num" value="1" min="1">
+              <span>of</span>
+              <span id="page-count">-</span>
+            </span>
+            <button class="toolbar-btn" id="next-page" title="Next Page">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+          
+          <div class="toolbar-center">
+            <button class="toolbar-btn" id="zoom-out" title="Zoom Out">
+              <i class="fas fa-search-minus"></i>
+            </button>
+            <select id="zoom-select">
+              <option value="auto">Auto</option>
+              <option value="page-actual">Actual Size</option>
+              <option value="page-fit">Fit Page</option>
+              <option value="page-width">Fit Width</option>
+              <option value="0.5">50%</option>
+              <option value="0.75">75%</option>
+              <option value="1">100%</option>
+              <option value="1.25">125%</option>
+              <option value="1.5">150%</option>
+              <option value="2">200%</option>
+            </select>
+            <button class="toolbar-btn" id="zoom-in" title="Zoom In">
+              <i class="fas fa-search-plus"></i>
+            </button>
+          </div>
+          
+          <div class="toolbar-right">
+            <button class="toolbar-btn" id="rotate-left" title="Rotate Left">
+              <i class="fas fa-undo"></i>
+            </button>
+            <button class="toolbar-btn" id="rotate-right" title="Rotate Right">
+              <i class="fas fa-redo"></i>
+            </button>
+          </div>
+        </div>
+        
+        <div class="pdfjs-content">
+          <canvas id="pdf-canvas"></canvas>
+          <div class="pdfjs-loading">
+            <div class="loading-spinner"></div>
+            <p>Loading PDF...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div class="pdf-loading" id="pdf-loading">
+    <div class="loading-content">
+      <div class="loading-spinner"></div>
+      <p>Loading PDF viewer...</p>
+    </div>
+  </div>
+
+  <!-- Error State -->
+  <div class="pdf-error" id="pdf-error" style="display: none;">
+    <div class="error-content">
+      <i class="fas fa-exclamation-triangle"></i>
+      <h3>Error Loading PDF</h3>
+      <p>There was an error loading the PDF file.</p>
+      <div class="error-actions">
+        <button class="btn btn-primary" onclick="location.reload()">
+          <i class="fas fa-refresh"></i> Retry
+        </button>
+        <a href="{{ page.file | relative_url }}" class="btn btn-secondary" download>
+          <i class="fas fa-download"></i> Download Instead
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="pdf-navigation">
+    {% comment %} Navigate to the correct nested data structure {% endcomment %}
+    {% assign college_data = site.data.colleges | where: "slug", page.college_slug | first %}
+    {% assign branch_data = college_data.branches | where: "slug", page.branch_slug | first %}
+    {% assign semester_data = branch_data.semesters | where: "slug", page.semester_slug | first %}
+    {% assign subject_data = semester_data.subjects | where: "slug", page.subject_slug | first %}
+    
+    {% if subject_data and subject_data.pyqs %}
+      {% assign papers = subject_data.pyqs | sort: 'year' %}
+      {% assign current_index = -1 %}
+      
+      {% comment %} Find current paper index {% endcomment %}
+      {% for pyq in papers %}
+        {% capture pyq_id %}{{ page.college_slug }}-{{ page.subject_slug }}-{{ pyq.year }}{% endcapture %}
+        {% if pyq_id == page.name %}
+          {% assign current_index = forloop.index0 %}
+          {% break %}
+        {% endif %}
+      {% endfor %}
+      
+      {% comment %} Calculate navigation indices safely {% endcomment %}
+      {% assign prev_index = current_index | minus: 1 %}
+      {% assign next_index = current_index | plus: 1 %}
+      {% assign max_index = papers.size | minus: 1 %}
+      
+      {% comment %} Previous navigation {% endcomment %}
+      {% if current_index > 0 %}
+        {% assign prev_paper = papers[prev_index] %}
+        {% capture prev_url %}/pdf-viewer/{{ page.college_slug }}/{{ page.branch_slug }}/{{ page.semester_slug }}/{{ page.subject_slug }}/{{ page.college_slug }}-{{ page.subject_slug }}-{{ prev_paper.year }}{% endcapture %}
+        <a href="{{ prev_url | relative_url }}" class="nav-btn nav-prev">
+          <i class="fas fa-chevron-left"></i>
+          <span>Previous<br><small>{{ prev_paper.year }}</small></span>
+        </a>
+      {% endif %}
+      
+      {% comment %} Next navigation {% endcomment %}
+      {% if current_index < max_index and current_index >= 0 %}
+        {% assign next_paper = papers[next_index] %}
+        {% capture next_url %}/pdf-viewer/{{ page.college_slug }}/{{ page.branch_slug }}/{{ page.semester_slug }}/{{ page.subject_slug }}/{{ page.college_slug }}-{{ page.subject_slug }}-{{ next_paper.year }}{% endcapture %}
+        <a href="{{ next_url | relative_url }}" class="nav-btn nav-next">
+          <span>Next<br><small>{{ next_paper.year }}</small></span>
+          <i class="fas fa-chevron-right"></i>
+        </a>
+      {% endif %}
+    {% endif %}
+  </nav>
+</div>
+
+<!-- PDF.js Library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+  // Configure PDF.js worker
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+</script>
