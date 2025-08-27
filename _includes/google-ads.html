@@ -1,0 +1,209 @@
+<!-- Google AdSense Common Component -->
+<div class="ad-container" id="google-ads-container">
+  <div class="ad-label">
+    <span>Advertisement</span>
+  </div>
+  
+  <!-- Responsive Ad Unit - Replace with your actual ad code -->
+  <div class="ad-unit responsive-ad">
+    <!-- Google AdSense code will go here -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXX"
+         crossorigin="anonymous"></script>
+    <!-- Responsive Ad Unit -->
+    <ins class="adsbygoogle responsive-ad-ins"
+         style="display:block"
+         data-ad-client="ca-pub-XXXXXXXXXX"
+         data-ad-slot="XXXXXXXXXX"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+  </div>
+  
+  <!-- Fallback content when ad doesn't load -->
+  <div class="ad-fallback" style="display: none;">
+    <div class="ad-placeholder">
+      <i class="fas fa-heart"></i>
+      <p>Support PYQFort</p>
+      <small>Help us keep the lights on!</small>
+    </div>
+  </div>
+</div>
+
+<!-- Ad Styles -->
+<style>
+.ad-container {
+  margin: 2rem 0;
+  padding: 1rem;
+  background: var(--light-gray);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  text-align: center;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.ad-container:hover {
+  border-color: rgba(74, 108, 247, 0.3);
+  box-shadow: 0 2px 10px rgba(74, 108, 247, 0.1);
+}
+
+.ad-label {
+  font-size: 0.8rem;
+  color: var(--secondary-color);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.5rem;
+  opacity: 0.7;
+}
+
+.ad-unit {
+  min-height: 250px;
+  max-height: 300px;
+  overflow: hidden;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.5);
+  position: relative;
+}
+
+.responsive-ad-ins {
+  min-height: 250px;
+}
+
+.ad-placeholder {
+  padding: 2rem;
+  color: var(--secondary-color);
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 6px;
+  border: 2px dashed #dee2e6;
+}
+
+.ad-placeholder i {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+  animation: pulse 2s ease-in-out infinite alternate;
+}
+
+.ad-placeholder p {
+  margin: 0.5rem 0;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.ad-placeholder small {
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+@keyframes pulse {
+  from { opacity: 0.6; }
+  to { opacity: 1; }
+}
+
+/* Dark theme support */
+.dark-theme .ad-container {
+  background: var(--light-gray);
+  border-color: var(--border-color);
+}
+
+.dark-theme .ad-placeholder {
+  background: linear-gradient(135deg, #2d2d2d 0%, #404040 100%);
+  border-color: #505050;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .ad-container {
+    margin: 1.5rem 0;
+    padding: 0.8rem;
+  }
+  
+  .ad-unit {
+    min-height: 200px;
+    max-height: 250px;
+  }
+  
+  .responsive-ad-ins {
+    min-height: 200px;
+  }
+  
+  .ad-placeholder {
+    padding: 1.5rem;
+  }
+  
+  .ad-placeholder i {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .ad-container {
+    margin: 1rem 0;
+    padding: 0.6rem;
+  }
+  
+  .ad-unit {
+    min-height: 150px;
+    max-height: 200px;
+  }
+  
+  .responsive-ad-ins {
+    min-height: 150px;
+  }
+}
+
+/* Special positioning classes */
+.ad-container.sticky-ad {
+  position: sticky;
+  top: 120px;
+  z-index: 50;
+}
+
+.ad-container.inline-ad {
+  margin: 1rem 0;
+  background: transparent;
+  border: none;
+}
+
+.ad-container.sidebar-ad {
+  position: sticky;
+  top: 20px;
+  z-index: 10;
+}
+
+/* Hide ads for users with ad blockers - show fallback */
+.ad-container:not(.ad-loaded) .ad-fallback {
+  display: block !important;
+}
+
+.ad-container:not(.ad-loaded) .ad-unit {
+  display: none;
+}
+</style>
+
+<!-- Ad Loading Detection Script -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Check if ads are blocked
+  setTimeout(function() {
+    const adContainers = document.querySelectorAll('.ad-container');
+    adContainers.forEach(function(container) {
+      const adIns = container.querySelector('.adsbygoogle');
+      if (adIns && adIns.innerHTML === '') {
+        // Ad is likely blocked, show fallback
+        container.classList.add('ad-blocked');
+        const fallback = container.querySelector('.ad-fallback');
+        const adUnit = container.querySelector('.ad-unit');
+        if (fallback && adUnit) {
+          fallback.style.display = 'block';
+          adUnit.style.display = 'none';
+        }
+      } else {
+        container.classList.add('ad-loaded');
+      }
+    });
+  }, 2000);
+});
+</script>

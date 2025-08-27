@@ -1,0 +1,368 @@
+<!-- In-Content Google Ads Component - Blends with content flow -->
+<div class="in-content-ad-container" id="in-content-google-ads">
+  <div class="in-content-ad-wrapper">
+    <div class="ad-label-subtle">
+      <span>Advertisement</span>
+    </div>
+    
+    <!-- In-Content Ad Unit -->
+    <div class="in-content-ad-unit">
+      <!-- Replace with your actual Google AdSense code -->
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXX"
+           crossorigin="anonymous"></script>
+      <!-- In-Feed/In-Article Ad -->
+      <ins class="adsbygoogle in-content-ad-ins"
+           style="display:block; text-align:center;"
+           data-ad-layout="in-article"
+           data-ad-format="fluid"
+           data-ad-client="ca-pub-XXXXXXXXXX"
+           data-ad-slot="XXXXXXXXXX"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+    
+    <!-- In-Content Ad Fallback -->
+    <div class="in-content-ad-fallback" style="display: none;">
+      <div class="in-content-ad-placeholder">
+        <div class="content-placeholder">
+          <i class="fas fa-lightbulb"></i>
+          <h4>Did You Know?</h4>
+          <p>PYQFort is maintained by students, for students. Help us grow!</p>
+          <div class="placeholder-actions">
+            <a href="{{ '/contribute/' | relative_url }}" class="btn-contribute">
+              <i class="fas fa-plus"></i>
+              Add PYQs
+            </a>
+            <a href="{{ '/about/' | relative_url }}" class="btn-learn-more">
+              Learn More
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.in-content-ad-container {
+  margin: 3rem 0;
+  padding: 0;
+  background: transparent;
+  border: none;
+  position: relative;
+}
+
+.in-content-ad-wrapper {
+  background: var(--background-color);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.in-content-ad-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
+}
+
+.in-content-ad-wrapper:hover {
+  box-shadow: 0 4px 20px rgba(74, 108, 247, 0.1);
+  transform: translateY(-2px);
+}
+
+.ad-label-subtle {
+  position: absolute;
+  top: 0.5rem;
+  right: 1rem;
+  font-size: 0.7rem;
+  color: var(--secondary-color);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.6;
+  background: var(--light-gray);
+  padding: 0.2rem 0.6rem;
+  border-radius: 3px;
+}
+
+.in-content-ad-unit {
+  min-height: 200px;
+  text-align: center;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.3);
+  padding: 1rem;
+}
+
+.in-content-ad-ins {
+  width: 100%;
+  min-height: 200px;
+}
+
+.in-content-ad-placeholder {
+  text-align: center;
+  padding: 2rem;
+  background: linear-gradient(135deg, rgba(74, 108, 247, 0.05) 0%, rgba(255, 255, 255, 0.95) 100%);
+  border-radius: 8px;
+  border: 2px dashed rgba(74, 108, 247, 0.2);
+}
+
+.content-placeholder {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.content-placeholder i {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+.content-placeholder h4 {
+  margin: 0 0 1rem 0;
+  color: var(--text-color);
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.content-placeholder p {
+  margin: 0 0 1.5rem 0;
+  color: var(--secondary-color);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.placeholder-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-contribute {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.5rem;
+  background: var(--primary-color);
+  color: white;
+  text-decoration: none;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(74, 108, 247, 0.3);
+}
+
+.btn-contribute:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(74, 108, 247, 0.4);
+  color: white;
+}
+
+.btn-learn-more {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.8rem 1.5rem;
+  background: transparent;
+  color: var(--primary-color);
+  text-decoration: none;
+  border: 2px solid var(--primary-color);
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.btn-learn-more:hover {
+  background: var(--primary-color);
+  color: white;
+  transform: translateY(-2px);
+}
+
+@keyframes glow {
+  from { 
+    opacity: 0.7; 
+    text-shadow: 0 0 10px rgba(74, 108, 247, 0.5);
+  }
+  to { 
+    opacity: 1; 
+    text-shadow: 0 0 15px rgba(74, 108, 247, 0.8);
+  }
+}
+
+/* Card-like appearance */
+.in-content-ad-container.card-style .in-content-ad-wrapper {
+  background: var(--background-color);
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.in-content-ad-container.card-style .in-content-ad-wrapper:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Minimal style for less intrusion */
+.in-content-ad-container.minimal .in-content-ad-wrapper {
+  background: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: none;
+  padding: 1rem;
+}
+
+.in-content-ad-container.minimal .ad-label-subtle {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+/* Dark theme support */
+.dark-theme .in-content-ad-wrapper {
+  background: var(--light-gray);
+  border-color: var(--border-color);
+}
+
+.dark-theme .ad-label-subtle {
+  background: rgba(45, 45, 45, 0.9);
+  color: var(--text-color);
+}
+
+.dark-theme .in-content-ad-placeholder {
+  background: linear-gradient(135deg, rgba(93, 123, 249, 0.1) 0%, rgba(45, 45, 45, 0.95) 100%);
+  border-color: rgba(93, 123, 249, 0.3);
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .in-content-ad-container {
+    margin: 2rem 0;
+  }
+  
+  .in-content-ad-wrapper {
+    padding: 1rem;
+  }
+  
+  .in-content-ad-unit {
+    min-height: 150px;
+    padding: 0.5rem;
+  }
+  
+  .in-content-ad-ins {
+    min-height: 150px;
+  }
+  
+  .content-placeholder {
+    padding: 1.5rem;
+  }
+  
+  .content-placeholder i {
+    font-size: 2rem;
+  }
+  
+  .content-placeholder h4 {
+    font-size: 1.1rem;
+  }
+  
+  .content-placeholder p {
+    font-size: 0.9rem;
+  }
+  
+  .placeholder-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .btn-contribute,
+  .btn-learn-more {
+    width: 100%;
+    justify-content: center;
+    max-width: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .in-content-ad-wrapper {
+    padding: 0.8rem;
+  }
+  
+  .in-content-ad-unit {
+    min-height: 120px;
+  }
+  
+  .in-content-ad-ins {
+    min-height: 120px;
+  }
+  
+  .ad-label-subtle {
+    font-size: 0.65rem;
+    padding: 0.15rem 0.5rem;
+  }
+}
+
+/* Animation on scroll */
+.in-content-ad-container {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease;
+}
+
+.in-content-ad-container.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Special positioning for different contexts */
+.in-content-ad-container.between-sections {
+  margin: 4rem 0;
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  padding: 2rem 0;
+  background: var(--light-gray);
+}
+
+.in-content-ad-container.between-sections .in-content-ad-wrapper {
+  background: var(--background-color);
+}
+</style>
+
+<script>
+// In-content ad loading detection
+document.addEventListener('DOMContentLoaded', function() {
+  // Animate in-content ads on scroll
+  const inContentAds = document.querySelectorAll('.in-content-ad-container');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate-in');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  inContentAds.forEach(ad => observer.observe(ad));
+  
+  // Ad loading detection
+  setTimeout(function() {
+    const inContentContainers = document.querySelectorAll('#in-content-google-ads');
+    inContentContainers.forEach(function(container) {
+      const adIns = container.querySelector('.adsbygoogle');
+      if (adIns && adIns.innerHTML === '') {
+        const fallback = container.querySelector('.in-content-ad-fallback');
+        const adUnit = container.querySelector('.in-content-ad-unit');
+        if (fallback && adUnit) {
+          fallback.style.display = 'block';
+          adUnit.style.display = 'none';
+        }
+      }
+    });
+  }, 2000);
+});
+</script>

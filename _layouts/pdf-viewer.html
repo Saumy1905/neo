@@ -2,27 +2,32 @@
 layout: default
 ---
 <div class="container">
-  <!-- Breadcrumbs -->
-  <nav class="breadcrumbs">
-    <a href="{{ '/' | relative_url }}">Home</a> &gt;
-    <a href="{{ '/colleges/' | append: page.college | relative_url }}">{{ page.college | replace: 'ymca', 'JC Bose University' | replace: 'vit-bhopal', 'VIT Bhopal University' }}</a> &gt;
-    <a href="{{ '/colleges/' | append: page.college | append: '/' | append: page.branch | relative_url }}">{{ page.branch | replace: '-', ' ' | capitalize }}</a> &gt;
-    <a href="{{ '/colleges/' | append: page.college | append: '/' | append: page.branch | append: '/' | append: page.semester | relative_url }}">{{ page.semester | replace: 'sem', 'Semester ' }}</a> &gt;
-    <a href="{{ '/colleges/' | append: page.college | append: '/' | append: page.branch | append: '/' | append: page.semester | append: '/' | append: page.subject | relative_url }}">{{ page.subject | replace: '-', ' ' | capitalize }}</a> &gt;
-    <span>{{ page.title }}</span>
-  </nav>
+  <div class="pdf-main-content">
+    <!-- Main PDF Content -->
+    <div class="pdf-content-area">
+      <!-- Breadcrumbs -->
+      <nav class="breadcrumbs">
+        <a href="{{ '/' | relative_url }}">Home</a> &gt;
+        <a href="{{ '/colleges/' | append: page.college | relative_url }}">{{ page.college | replace: 'ymca', 'JC Bose University' | replace: 'vit-bhopal', 'VIT Bhopal University' }}</a> &gt;
+        <a href="{{ '/colleges/' | append: page.college | append: '/' | append: page.branch | relative_url }}">{{ page.branch | replace: '-', ' ' | capitalize }}</a> &gt;
+        <a href="{{ '/colleges/' | append: page.college | append: '/' | append: page.branch | append: '/' | append: page.semester | relative_url }}">{{ page.semester | replace: 'sem', 'Semester ' }}</a> &gt;
+        <a href="{{ '/colleges/' | append: page.college | append: '/' | append: page.branch | append: '/' | append: page.semester | append: '/' | append: page.subject | relative_url }}">{{ page.subject | replace: '-', ' ' | capitalize }}</a> &gt;
+        <span>{{ page.title }}</span>
+      </nav>
 
+      <!-- PDF Viewer Header -->
+      <header class="pdf-viewer-header">
+        <h1 class="pdf-title">{{ page.title }} ({{ page.year }})</h1>
+        <div class="pdf-meta">
+          <span>{{ page.college | replace: 'ymca', 'JC Bose University' | replace: 'vit-bhopal', 'VIT Bhopal University' }}</span>
+          <span>{{ page.branch | replace: '-', ' ' | capitalize }}</span>
+          <span>{{ page.semester | replace: 'sem', 'Semester ' }}</span>
+          <span>{{ page.pages | default: 'N/A' }} pages</span>
+        </div>
+      </header>
 
-  <!-- PDF Viewer Header -->
-  <header class="pdf-viewer-header">
-    <h1 class="pdf-title">{{ page.title }} ({{ page.year }})</h1>
-    <div class="pdf-meta">
-      <span>{{ page.college | replace: 'ymca', 'JC Bose University' | replace: 'vit-bhopal', 'VIT Bhopal University' }}</span>
-      <span>{{ page.branch | replace: '-', ' ' | capitalize }}</span>
-      <span>{{ page.semester | replace: 'sem', 'Semester ' }}</span>
-      <span>{{ page.pages | default: 'N/A' }} pages</span>
-    </div>
-  </header>
+      <!-- Strategic Ad Placement - Before PDF viewer, high visibility -->
+      {% include google-ads.html %}
 
   <!-- Viewer Options -->
   <div class="viewer-options">
@@ -240,6 +245,25 @@ layout: default
       {% endif %}
     {% endif %}
   </nav>
+    </div> <!-- End PDF content area -->
+    
+    <!-- Sidebar with ads - visible on desktop -->
+    <div class="pdf-sidebar">
+      {% include sidebar-ads.html %}
+      
+      <!-- Additional sidebar content can go here -->
+      <div class="pdf-info-sidebar">
+        <h3>Quick Info</h3>
+        <ul>
+          <li><i class="fas fa-university"></i> {{ page.college | replace: 'ymca', 'JC Bose University' | replace: 'vit-bhopal', 'VIT Bhopal University' }}</li>
+          <li><i class="fas fa-graduation-cap"></i> {{ page.branch | replace: '-', ' ' | capitalize }}</li>
+          <li><i class="fas fa-calendar"></i> {{ page.semester | replace: 'sem', 'Semester ' }}</li>
+          <li><i class="fas fa-book"></i> {{ page.subject | replace: '-', ' ' | capitalize }}</li>
+          <li><i class="fas fa-file-pdf"></i> {{ page.pages | default: 'N/A' }} pages</li>
+        </ul>
+      </div>
+    </div>
+  </div> <!-- End PDF main content -->
 </div>
 
 <!-- PDF.js Library -->

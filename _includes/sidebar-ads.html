@@ -1,0 +1,295 @@
+<!-- Sidebar Google Ads Component - For PDF and content pages -->
+<div class="sidebar-ad-container" id="sidebar-google-ads">
+  <div class="sidebar-ad-wrapper">
+    <div class="ad-label-sidebar">
+      <span>Sponsored</span>
+    </div>
+    
+    <!-- Sidebar Ad Unit -->
+    <div class="sidebar-ad-unit">
+      <!-- Replace with your actual Google AdSense code -->
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXX"
+           crossorigin="anonymous"></script>
+      <!-- Sidebar Vertical Ad -->
+      <ins class="adsbygoogle sidebar-ad-ins"
+           style="display:block"
+           data-ad-client="ca-pub-XXXXXXXXXX"
+           data-ad-slot="XXXXXXXXXX"
+           data-ad-format="vertical"
+           data-full-width-responsive="true"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+    
+    <!-- Sidebar Ad Fallback -->
+    <div class="sidebar-ad-fallback" style="display: none;">
+      <div class="sidebar-ad-placeholder">
+        <div class="sidebar-placeholder-content">
+          <i class="fas fa-coffee"></i>
+          <h4>Support Us</h4>
+          <p>Buy us a coffee to keep PYQFort running!</p>
+          <a href="#" class="btn-support">
+            <i class="fas fa-heart"></i>
+            Donate
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.sidebar-ad-container {
+  background: var(--background-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  position: sticky;
+  top: 20px;
+  z-index: 10;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.sidebar-ad-container:hover {
+  border-color: rgba(74, 108, 247, 0.3);
+  box-shadow: 0 4px 15px rgba(74, 108, 247, 0.1);
+}
+
+.sidebar-ad-wrapper {
+  text-align: center;
+}
+
+.ad-label-sidebar {
+  font-size: 0.75rem;
+  color: var(--secondary-color);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.8rem;
+  opacity: 0.7;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.5rem;
+}
+
+.sidebar-ad-unit {
+  min-height: 300px;
+  max-height: 600px;
+  overflow: hidden;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.5);
+  position: relative;
+}
+
+.sidebar-ad-ins {
+  width: 100%;
+  min-height: 300px;
+}
+
+.sidebar-ad-placeholder {
+  padding: 2rem 1rem;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 6px;
+  border: 2px dashed #dee2e6;
+  text-align: center;
+}
+
+.sidebar-placeholder-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.sidebar-placeholder-content i {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  animation: float 3s ease-in-out infinite;
+}
+
+.sidebar-placeholder-content h4 {
+  margin: 0;
+  color: var(--text-color);
+  font-size: 1.1rem;
+}
+
+.sidebar-placeholder-content p {
+  margin: 0;
+  color: var(--secondary-color);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.btn-support {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.5rem;
+  background: var(--primary-color);
+  color: white;
+  text-decoration: none;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(74, 108, 247, 0.3);
+}
+
+.btn-support:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(74, 108, 247, 0.4);
+  color: white;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Dark theme support */
+.dark-theme .sidebar-ad-container {
+  background: var(--light-gray);
+  border-color: var(--border-color);
+}
+
+.dark-theme .sidebar-ad-placeholder {
+  background: linear-gradient(135deg, #2d2d2d 0%, #404040 100%);
+  border-color: #505050;
+}
+
+/* Responsive behavior */
+@media (max-width: 1200px) {
+  .sidebar-ad-container {
+    position: static;
+    margin: 1.5rem auto;
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar-ad-container {
+    margin: 1rem 0;
+    max-width: 100%;
+  }
+  
+  .sidebar-ad-unit {
+    min-height: 200px;
+    max-height: 300px;
+  }
+  
+  .sidebar-ad-ins {
+    min-height: 200px;
+  }
+  
+  .sidebar-ad-placeholder {
+    padding: 1.5rem 1rem;
+  }
+  
+  .sidebar-placeholder-content i {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar-ad-container {
+    padding: 0.8rem;
+  }
+  
+  .sidebar-ad-unit {
+    min-height: 150px;
+    max-height: 200px;
+  }
+  
+  .sidebar-ad-ins {
+    min-height: 150px;
+  }
+  
+  .sidebar-placeholder-content {
+    gap: 0.8rem;
+  }
+  
+  .sidebar-placeholder-content i {
+    font-size: 1.8rem;
+  }
+  
+  .sidebar-placeholder-content h4 {
+    font-size: 1rem;
+  }
+  
+  .sidebar-placeholder-content p {
+    font-size: 0.8rem;
+  }
+  
+  .btn-support {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* Special classes for different positions */
+.sidebar-ad-container.fixed-sidebar {
+  position: fixed;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 200px;
+  z-index: 1000;
+}
+
+.sidebar-ad-container.bottom-sticky {
+  position: sticky;
+  bottom: 20px;
+  top: auto;
+}
+
+/* Animation for loading */
+.sidebar-ad-container {
+  animation: slideInRight 0.5s ease-out;
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+</style>
+
+<script>
+// Sidebar ad loading detection
+document.addEventListener('DOMContentLoaded', function() {
+  setTimeout(function() {
+    const sidebarContainer = document.getElementById('sidebar-google-ads');
+    if (sidebarContainer) {
+      const adIns = sidebarContainer.querySelector('.adsbygoogle');
+      if (adIns && adIns.innerHTML === '') {
+        const fallback = sidebarContainer.querySelector('.sidebar-ad-fallback');
+        const adUnit = sidebarContainer.querySelector('.sidebar-ad-unit');
+        if (fallback && adUnit) {
+          fallback.style.display = 'block';
+          adUnit.style.display = 'none';
+        }
+      }
+    }
+  }, 2000);
+});
+
+// Smart positioning based on screen size
+function adjustSidebarAd() {
+  const sidebar = document.getElementById('sidebar-google-ads');
+  if (sidebar && window.innerWidth > 1200) {
+    // For larger screens, make it more prominent
+    sidebar.style.position = 'sticky';
+    sidebar.style.top = '120px';
+  }
+}
+
+window.addEventListener('resize', adjustSidebarAd);
+document.addEventListener('DOMContentLoaded', adjustSidebarAd);
+</script>
