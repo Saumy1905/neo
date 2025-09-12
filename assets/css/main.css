@@ -2246,17 +2246,14 @@ h1, h2, h3, h4, h5, h6 {
     transform: scale(0.8) translateX(0);
   }
   
-  /* Calculate middle card dynamically - for 2 cards, show 1st; for 3+ cards, show middle */
-  .college-cards-container:not(.is-visible) .card:first-child:nth-last-child(1),
-  .college-cards-container:not(.is-visible) .card:first-child:nth-last-child(2) {
+  /* Show the second card as the middle card for all scenarios */
+  .college-cards-container:not(.is-visible) .card:nth-child(2) {
     opacity: 1;
     transform: scale(1) translateX(0);
   }
   
-  .college-cards-container:not(.is-visible) .card:first-child:nth-last-child(3) ~ .card:nth-child(2),
-  .college-cards-container:not(.is-visible) .card:first-child:nth-last-child(4) ~ .card:nth-child(2),
-  .college-cards-container:not(.is-visible) .card:first-child:nth-last-child(5) ~ .card:nth-child(3),
-  .college-cards-container:not(.is-visible) .card:first-child:nth-last-child(6) ~ .card:nth-child(3) {
+  /* Fallback: if there's only 1 card, show the first card */
+  .college-cards-container:not(.is-visible) .card:first-child:nth-last-child(1) {
     opacity: 1;
     transform: scale(1) translateX(0);
   }
@@ -2268,13 +2265,18 @@ h1, h2, h3, h4, h5, h6 {
     transition-delay: 0s; /* Default delay */
   }
   
-  /* Staggered animation delays - splash effect from center outward */
+  /* Staggered animation delays - splash effect from second card (center) outward */
+  /* For 1 card */
+  .college-cards-container.is-visible .card:first-child:nth-last-child(1) {
+    transition-delay: 0s; /* Only card, immediate */
+  }
+  
   /* For 2 cards */
   .college-cards-container.is-visible .card:first-child:nth-last-child(2) {
-    transition-delay: 0s; /* First card, immediate */
+    transition-delay: 0.1s; /* First card */
   }
   .college-cards-container.is-visible .card:first-child:nth-last-child(2) ~ .card:nth-child(2) {
-    transition-delay: 0.1s; /* Second card, slight delay */
+    transition-delay: 0s; /* Second card (center, was visible) */
   }
   
   /* For 3 cards */
@@ -2282,7 +2284,7 @@ h1, h2, h3, h4, h5, h6 {
     transition-delay: 0.1s; /* First card */
   }
   .college-cards-container.is-visible .card:first-child:nth-last-child(3) ~ .card:nth-child(2) {
-    transition-delay: 0s; /* Middle card (was visible) */
+    transition-delay: 0s; /* Second card (center, was visible) */
   }
   .college-cards-container.is-visible .card:first-child:nth-last-child(3) ~ .card:nth-child(3) {
     transition-delay: 0.1s; /* Third card */
@@ -2293,7 +2295,7 @@ h1, h2, h3, h4, h5, h6 {
     transition-delay: 0.2s; /* First card */
   }
   .college-cards-container.is-visible .card:first-child:nth-last-child(4) ~ .card:nth-child(2) {
-    transition-delay: 0s; /* Second card (was visible) */
+    transition-delay: 0s; /* Second card (center, was visible) */
   }
   .college-cards-container.is-visible .card:first-child:nth-last-child(4) ~ .card:nth-child(3) {
     transition-delay: 0.1s; /* Third card */
@@ -2307,10 +2309,10 @@ h1, h2, h3, h4, h5, h6 {
     transition-delay: 0.2s; /* First card */
   }
   .college-cards-container.is-visible .card:first-child:nth-last-child(5) ~ .card:nth-child(2) {
-    transition-delay: 0.1s; /* Second card */
+    transition-delay: 0s; /* Second card (center, was visible) */
   }
   .college-cards-container.is-visible .card:first-child:nth-last-child(5) ~ .card:nth-child(3) {
-    transition-delay: 0s; /* Third card (middle, was visible) */
+    transition-delay: 0.1s; /* Third card */
   }
   .college-cards-container.is-visible .card:first-child:nth-last-child(5) ~ .card:nth-child(4) {
     transition-delay: 0.1s; /* Fourth card */
@@ -2324,10 +2326,10 @@ h1, h2, h3, h4, h5, h6 {
     transition-delay: 0.3s; /* First card */
   }
   .college-cards-container.is-visible .card:first-child:nth-last-child(6) ~ .card:nth-child(2) {
-    transition-delay: 0.2s; /* Second card */
+    transition-delay: 0s; /* Second card (center, was visible) */
   }
   .college-cards-container.is-visible .card:first-child:nth-last-child(6) ~ .card:nth-child(3) {
-    transition-delay: 0s; /* Third card (was visible) */
+    transition-delay: 0.1s; /* Third card */
   }
   .college-cards-container.is-visible .card:first-child:nth-last-child(6) ~ .card:nth-child(4) {
     transition-delay: 0.1s; /* Fourth card */
