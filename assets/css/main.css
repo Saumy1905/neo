@@ -2213,3 +2213,155 @@ h1, h2, h3, h4, h5, h6 {
 .dark-theme .pdf-info-sidebar li {
   border-bottom-color: var(--border-color);
 }
+
+/* ===== COLLEGE CARDS SPLASH ANIMATION (LAPTOP ONLY) ===== */
+
+/* Only apply animation on laptops and larger screens */
+@media (min-width: 1024px) {
+  
+  /* Container for the animation */
+  .college-cards-container {
+    position: relative;
+    overflow: visible;
+  }
+  
+  /* Initial state: all cards except middle one are hidden and centered */
+  .college-cards-container .card {
+    transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transform-origin: center center;
+    opacity: 1;
+    transform: scale(1) translateX(0);
+  }
+  
+  /* Hide all cards except the middle one initially */
+  .college-cards-container:not(.is-visible) .card {
+    opacity: 0;
+    transform: scale(0.8) translateX(0);
+    position: relative;
+  }
+  
+  /* Show only the middle card initially */
+  .college-cards-container:not(.is-visible) .card:nth-child(n) {
+    opacity: 0;
+    transform: scale(0.8) translateX(0);
+  }
+  
+  /* Calculate middle card dynamically - for 2 cards, show 1st; for 3+ cards, show middle */
+  .college-cards-container:not(.is-visible) .card:first-child:nth-last-child(1),
+  .college-cards-container:not(.is-visible) .card:first-child:nth-last-child(2) {
+    opacity: 1;
+    transform: scale(1) translateX(0);
+  }
+  
+  .college-cards-container:not(.is-visible) .card:first-child:nth-last-child(3) ~ .card:nth-child(2),
+  .college-cards-container:not(.is-visible) .card:first-child:nth-last-child(4) ~ .card:nth-child(2),
+  .college-cards-container:not(.is-visible) .card:first-child:nth-last-child(5) ~ .card:nth-child(3),
+  .college-cards-container:not(.is-visible) .card:first-child:nth-last-child(6) ~ .card:nth-child(3) {
+    opacity: 1;
+    transform: scale(1) translateX(0);
+  }
+  
+  /* Animated state: when .is-visible is added, cards animate to their positions */
+  .college-cards-container.is-visible .card {
+    opacity: 1;
+    transform: scale(1) translateX(0);
+    transition-delay: 0s; /* Default delay */
+  }
+  
+  /* Staggered animation delays - splash effect from center outward */
+  /* For 2 cards */
+  .college-cards-container.is-visible .card:first-child:nth-last-child(2) {
+    transition-delay: 0s; /* First card, immediate */
+  }
+  .college-cards-container.is-visible .card:first-child:nth-last-child(2) ~ .card:nth-child(2) {
+    transition-delay: 0.1s; /* Second card, slight delay */
+  }
+  
+  /* For 3 cards */
+  .college-cards-container.is-visible .card:first-child:nth-last-child(3) {
+    transition-delay: 0.1s; /* First card */
+  }
+  .college-cards-container.is-visible .card:first-child:nth-last-child(3) ~ .card:nth-child(2) {
+    transition-delay: 0s; /* Middle card (was visible) */
+  }
+  .college-cards-container.is-visible .card:first-child:nth-last-child(3) ~ .card:nth-child(3) {
+    transition-delay: 0.1s; /* Third card */
+  }
+  
+  /* For 4 cards */
+  .college-cards-container.is-visible .card:first-child:nth-last-child(4) {
+    transition-delay: 0.2s; /* First card */
+  }
+  .college-cards-container.is-visible .card:first-child:nth-last-child(4) ~ .card:nth-child(2) {
+    transition-delay: 0s; /* Second card (was visible) */
+  }
+  .college-cards-container.is-visible .card:first-child:nth-last-child(4) ~ .card:nth-child(3) {
+    transition-delay: 0.1s; /* Third card */
+  }
+  .college-cards-container.is-visible .card:first-child:nth-last-child(4) ~ .card:nth-child(4) {
+    transition-delay: 0.2s; /* Fourth card */
+  }
+  
+  /* For 5 cards */
+  .college-cards-container.is-visible .card:first-child:nth-last-child(5) {
+    transition-delay: 0.2s; /* First card */
+  }
+  .college-cards-container.is-visible .card:first-child:nth-last-child(5) ~ .card:nth-child(2) {
+    transition-delay: 0.1s; /* Second card */
+  }
+  .college-cards-container.is-visible .card:first-child:nth-last-child(5) ~ .card:nth-child(3) {
+    transition-delay: 0s; /* Third card (middle, was visible) */
+  }
+  .college-cards-container.is-visible .card:first-child:nth-last-child(5) ~ .card:nth-child(4) {
+    transition-delay: 0.1s; /* Fourth card */
+  }
+  .college-cards-container.is-visible .card:first-child:nth-last-child(5) ~ .card:nth-child(5) {
+    transition-delay: 0.2s; /* Fifth card */
+  }
+  
+  /* For 6 cards */
+  .college-cards-container.is-visible .card:first-child:nth-last-child(6) {
+    transition-delay: 0.3s; /* First card */
+  }
+  .college-cards-container.is-visible .card:first-child:nth-last-child(6) ~ .card:nth-child(2) {
+    transition-delay: 0.2s; /* Second card */
+  }
+  .college-cards-container.is-visible .card:first-child:nth-last-child(6) ~ .card:nth-child(3) {
+    transition-delay: 0s; /* Third card (was visible) */
+  }
+  .college-cards-container.is-visible .card:first-child:nth-last-child(6) ~ .card:nth-child(4) {
+    transition-delay: 0.1s; /* Fourth card */
+  }
+  .college-cards-container.is-visible .card:first-child:nth-last-child(6) ~ .card:nth-child(5) {
+    transition-delay: 0.2s; /* Fifth card */
+  }
+  .college-cards-container.is-visible .card:first-child:nth-last-child(6) ~ .card:nth-child(6) {
+    transition-delay: 0.3s; /* Sixth card */
+  }
+  
+  /* Enhanced transition for smooth animation */
+  .college-cards-container .card {
+    will-change: transform, opacity;
+  }
+  
+  /* Ensure the grid layout is maintained */
+  .college-cards-container .college-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+  
+  /* Individual card styling to ensure proper stacking */
+  .college-cards-container .card .college-card {
+    transform: none; /* Remove any existing transforms */
+    transition: transform 0.3s, box-shadow 0.3s; /* Keep hover effects */
+  }
+  
+  /* Maintain hover effects */
+  .college-cards-container .card .college-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+  }
+  
+}

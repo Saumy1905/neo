@@ -87,6 +87,9 @@ document.addEventListener('DOMContentLoaded', function() {
   // Initialize card animations
   initializeCardAnimations();
   
+  // Initialize college cards splash animation
+  initializeCollegeCardsAnimation();
+  
   // Initialize advanced filtering
   initializeAdvancedFiltering();
   
@@ -1167,3 +1170,70 @@ window.debugPYQData = function() {
   console.log('🔍 Current zoom scale:', scale);
   console.log('🌐 Sample URLs:', allPYQs.slice(0, 5).map(p => ({ subject: p.subject, url: p.url })));
 };
+
+// ===== COLLEGE CARDS SPLASH ANIMATION =====
+
+function initializeCollegeCardsAnimation() {
+  // Only run on laptop screens and larger
+  if (window.innerWidth < 1024) {
+    return;
+  }
+  
+  // Check for IntersectionObserver support
+  if (!('IntersectionObserver' in window)) {
+    console.warn('⚠️ IntersectionObserver not supported, skipping college cards animation');
+    return;
+  }
+  
+  const collegeCardsContainer = document.querySelector('.college-cards-container');
+  if (!collegeCardsContainer) {
+    return;
+  }
+  
+  // Set up intersection observer with more precise timing
+  const observerOptions = {
+    threshold: 0.3, // Trigger when 30% of the container is visible
+    rootMargin: '0px 0px -50px 0px' // Start animation 50px before it comes fully into view
+  };
+  
+  const collegeCardsObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // Scrolling down - show animation
+        entry.target.classList.add('is-visible');
+      } else {
+        // Scrolling up - hide cards (converge back to center)
+        entry.target.classList.remove('is-visible');
+      }
+    });
+  }, observerOptions);
+  
+  // Start observing the college cards container
+  collegeCardsObserver.observe(collegeCardsContainer);
+  
+  // Handle window resize to disable/enable animation based on screen size
+  const handleResize = debounce(() => {
+    if (window.innerWidth < 1024) {
+      // On smaller screens, ensure all cards are visible
+      collegeCardsContainer.classList.add('is-visible');
+      collegeCardsObserver.disconnect();
+    } else {
+      // On larger screens, re-enable the observer
+      collegeCardsObserver.observe(collegeCardsContainer);
+      
+      // Check if the container is currently in view
+      const rect = collegeCardsContainer.getBoundingClientRect();
+      const isInView = rect.top < window.innerHeight && rect.bottom > 0;
+      
+      if (isInView) {
+        collegeCardsContainer.classList.add('is-visible');
+      } else {
+        collegeCardsContainer.classList.remove('is-visible');
+      }
+    }
+  }, 250);
+  
+  window.addEventListener('resize', handleResize);
+  
+  console.log('✨ College cards splash animation initialized');
+}
